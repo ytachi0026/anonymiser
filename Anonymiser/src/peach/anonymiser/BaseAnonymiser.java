@@ -1,5 +1,5 @@
 package peach.anonymiser;
 
-public interface BaseAnonymiser {
-
+public class BaseAnonymiser {
+	
 }
