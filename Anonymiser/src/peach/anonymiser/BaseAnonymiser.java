@@ -50,8 +50,8 @@ public class BaseAnonymiser {
 	 * @param filepath
 	 * @throws IOException 
 	 */
-	public void createData(String filepath) throws IOException {
-		this.data = Data.create(filepath, Charset.defaultCharset(), ',');
+	private void createData(String filepath) throws IOException {
+		this.setData(Data.create(filepath, Charset.defaultCharset(), ','));
 
 	}
 	
@@ -81,7 +81,7 @@ public class BaseAnonymiser {
 	public DataHandle anonymiseData(int k) throws IOException {
 		ARXConfiguration config = ARXConfiguration.create();
 		config.addPrivacyModel(new KAnonymity(k));
-		ARXResult result = anonymiser.anonymize(data, config);
+		ARXResult result = anonymiser.anonymize(getData(), config);
 		return result.getOutput();
 		
 	}
@@ -99,5 +99,13 @@ public class BaseAnonymiser {
 	 */
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
+	}
+
+	public Data getData() {
+		return data;
+	}
+
+	public void setData(Data data) {
+		this.data = data;
 	}
 }
