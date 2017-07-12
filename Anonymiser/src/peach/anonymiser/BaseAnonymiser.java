@@ -3,6 +3,7 @@ package peach.anonymiser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 import org.deidentifier.arx.ARXAnonymizer;
 import org.deidentifier.arx.ARXConfiguration;
@@ -39,12 +40,15 @@ public class BaseAnonymiser {
 	 * @param filepath - the filepath of where the CSV file is stored
 	 * @throws IOException 
 	 */
+	
+	
 	public BaseAnonymiser(String filepath) throws IOException {
 		setFilepath(filepath);
 		createData(filepath);
 		anonymiser = new ARXAnonymizer();
 	}
-
+	
+	
 	/**
 	 * This method will create the data object from the csv file
 	 * @param filepath
@@ -66,7 +70,6 @@ public class BaseAnonymiser {
 		CSVSyntax csvSyntax = new CSVSyntax();
 		csvSyntax.setDelimiter(',');
 		csvSyntax.setLinebreak(System.getProperty("line.separator"));
-		  
 		anonymise.save(outputFile, csvSyntax);
 		
 	}
@@ -81,9 +84,19 @@ public class BaseAnonymiser {
 	public DataHandle anonymiseData(int k) throws IOException {
 		ARXConfiguration config = ARXConfiguration.create();
 		config.addPrivacyModel(new KAnonymity(k));
+		//config.setMaxOutliers(0.02);
 		ARXResult result = anonymiser.anonymize(getData(), config);
+		
 		return result.getOutput();
 		
+	}
+	
+	public void storeCSVData() {
+		
+	}
+	
+	public ArrayList<String> getCSVHeaders() {
+		return null;
 	}
 	/**
 	 * Returns the filepath of the input csv file

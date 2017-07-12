@@ -1,0 +1,11 @@
+NHS Number,Patient Pathway Identifier (PPI),Organisation Code (PPI Identifier),Site Code (of Provider Consultant upgrade),Site Code (of Provider First Seen),Site Code (of Provider Decision To Treat Cancer),Site Code (of Treatment Start Date Cancer),Two week wait cancer,Primary diagnosis,Tumour Laterality
+1234567890,a1b2c3d4e5f6g7h8i910zzz,abc,jim,ofc,ind,ofc,Yes,Lung,N
+2345678901,b2c3d4e5f6g7h8i910a1abc,hhh,ofc,ofc,lov,iot,Yes,Heart,N
+3456789012,c3d4e5f6g7h8i910a1b2gdp,iot,ind,iot,abc,abc,Yes,Prostate,N
+4567890123,d4e5f6g7h8i910a1b2c3zaw,uio,abc,abc,ind,jim,Yes,Prostate,N
+5678901234,e5f6g7h8i910a1b2c3d4lol,kil,efg,ind,lov,uio,No,Breast,N
+1234567890,b2c3d4e5f6g7h8i910a1abc,abc,jim,lov,ofc,ind,Yes,Lung,N
+2345678901,b2c3d4e5f6g7h8i910a1abc,hhh,kil,uio,lov,ind,Yes,Heart,N
+3456789012,a1b2c3d4e5f6g7h8i910zzz,iot,kil,jim,kil,ind,Yes,Prostate,N
+4567890123,d4e5f6g7h8i910a1b2c3zaw,uio,kil,iot,uio,ofc,Yes,Prostate,N
+5678901234,e5f6g7h8i910a1b2c3d4lol,kil,ofc,ind,jim,kil,No,Breast,N
