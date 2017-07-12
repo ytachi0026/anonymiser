@@ -14,6 +14,9 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
+import org.bouncycastle.jcajce.provider.digest.SHA3;
+import org.bouncycastle.util.encoders.Hex;
+
 /**
  * This class creates an anonymiser for CWT data. It will accept a CSV file
  * and returns an anonymised version of that CSV file. 
@@ -79,8 +82,11 @@ public class CWTAnonymiser {
 							|| column == headerMap.get("Site Code (of Provider First Seen)")
 							|| column == headerMap.get("Site Code (of Provider Decision To Treat Cancer)")
 							|| column == headerMap.get("Site Code (of Treatment Start Date Cancer)")) {
-						int hashCurrentElement = currentElement.hashCode();
-						newRecord.add(Integer.toString(hashCurrentElement));
+						
+						
+						SHA3.DigestSHA3 digestSHA3 = new SHA3.DigestSHA3(512);
+						byte [] digest = digestSHA3.digest(currentElement.getBytes());
+						newRecord.add(Hex.toHexString(digest));
 						
 					} else {
 						newRecord.add(currentElement); //add element to current record
