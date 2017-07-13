@@ -1,37 +1,23 @@
-package peach.anonymiser.cwt;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import java.util.List;
+package peach.anonymiser.cosd;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
-
 import org.bouncycastle.util.encoders.Hex;
 
 import peach.anonymiser.Anonymiser;
 import peach.anonymiser.BaseAnonymiser;
 
-/**
- * This class creates an anonymiser for CWT data. It will accept a CSV file
- * and returns an anonymised version of that CSV file. 
- * @author Krinal
- *
- */
-public class CWTAnonymiser extends BaseAnonymiser implements Anonymiser {
-	
-	/**
-	 * Initialises the source CSV filepath and output filepath
-	 * @param inFilepath the source CSV filepath
-	 * @param outFilepath the output filepath of the anonymised CSV file
-	 */
-	public CWTAnonymiser(String inFilepath, String outFilepath) {
+public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
+
+	public COSDAnonymiser(String inFilepath, String outFilepath) {
 		super(inFilepath, outFilepath);
 	}
-	
+
 	/**
 	 * This method will hash sensitive fields, which is a pseudo identifier 
 	 * to the original identifier. Same inputs will have the same hash, 
@@ -50,8 +36,6 @@ public class CWTAnonymiser extends BaseAnonymiser implements Anonymiser {
 			CSVRecord headerList = getHeaderList();
 			List<CSVRecord> records = getAllRecords();
 			
-			
-			
 			initCSVPrinter();
 			CSVPrinter csvFilePrinter = getCSVPrinter();
 			csvFilePrinter.printRecord(headerList); //output the header
@@ -64,20 +48,46 @@ public class CWTAnonymiser extends BaseAnonymiser implements Anonymiser {
 					
 					String currentElement = currentRecord.get(column);
 					if (column == headerMap.get("NHS Number") //sensitive attributes
-							|| column == headerMap.get("Patient Pathway Identifier (PPI)")
-							|| column == headerMap.get("Organisation Code (PPI Identifier)")
-							|| column == headerMap.get("Site Code (of Provider Consultant upgrade)")
-							|| column == headerMap.get("Site Code (of Provider First Seen)")
-							|| column == headerMap.get("Site Code (of Provider Decision To Treat Cancer)")
-							|| column == headerMap.get("Site Code (of Treatment Start Date Cancer)")) {
+							|| column == headerMap.get("Local Patient Identifier")
+							|| column == headerMap.get("Person Family Name")
+							|| column == headerMap.get("Person Given Name")
+							|| column == headerMap.get("Person Family Name (At Birth)")
+							|| column == headerMap.get("Patient Usual Address (At Diagnosis)")
+							|| column == headerMap.get("Organisation Code (Code of Provider)")) {
 						
-						
-						
+						//hash sensitive attributes
 						byte [] digest = getHash(currentElement.getBytes());
 						newRecord.add(Hex.toHexString(digest));
 						
-					} else {
-						newRecord.add(currentElement); //add element to current record
+					}  else if (column == headerMap.get("Patient Birth Date")) {
+						//remove the date of birth and just keep the year.
+						int endIndex = currentElement.indexOf("/");
+						String year = currentElement.substring(0, endIndex);
+						newRecord.add(year);
+					} else if (column == headerMap.get("Postcode of Usual Address (At Diagnosis)")) {
+						//only keep first half of the postcode
+						currentElement = currentElement.replaceAll(" ", "");
+						String firstHalf = currentElement.substring(0, 2); //add first two chars
+						
+						int remainingLength = currentElement.length() - firstHalf.length();
+
+						if (remainingLength == 4) {
+							//add one character.
+							firstHalf = firstHalf + currentElement.substring(2, 3);
+						} else if (remainingLength > 4){
+							//add the next two characters
+							firstHalf = firstHalf + currentElement.substring(2, 4);
+						} else {
+							//Just keep it as is if anything else.
+							firstHalf = firstHalf + "";
+						}
+						newRecord.add(firstHalf); //add first half of postcode to list.
+						
+					}
+					
+					else {
+						//insensitive item, so just add it.
+						newRecord.add(currentElement);
 					}
 				}
 				csvFilePrinter.printRecord(newRecord); //output single record
@@ -86,9 +96,7 @@ public class CWTAnonymiser extends BaseAnonymiser implements Anonymiser {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }

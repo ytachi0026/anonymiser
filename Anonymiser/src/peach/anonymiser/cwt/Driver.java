@@ -2,6 +2,8 @@ package peach.anonymiser.cwt;
 
 import java.io.IOException;
 
+import peach.anonymiser.cosd.COSDAnonymiser;
+
 
 
 public class Driver {
@@ -9,9 +11,15 @@ public class Driver {
 	public static void main(String[] args) throws IOException {
 		String currentDir = System.getProperty("user.dir");
 		currentDir = currentDir.replace('\\', '/');
-		CWTAnonymiser cwt = new CWTAnonymiser(currentDir + "/cwt.csv",
+		String input = currentDir + "/cwt.csv";
+		String output = currentDir + "/output.csv";
+		
+/*		CWTAnonymiser cwt = new CWTAnonymiser(currentDir + "/cwt.csv",
 				currentDir + "/output.csv");
-		cwt.anonymise();
+		cwt.anonymise(); */
+		input = currentDir + "/cosd.csv";
+		COSDAnonymiser cosd = new COSDAnonymiser(input, output);
+		cosd.anonymise();
 
 	}
 
