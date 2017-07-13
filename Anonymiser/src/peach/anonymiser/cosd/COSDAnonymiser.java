@@ -78,7 +78,7 @@ public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
 							//add the next two characters
 							firstHalf = firstHalf + currentElement.substring(2, 4);
 						} else {
-							//Just keep it as is if anything else.
+							//Keep the first half is it is, if anything else.
 							firstHalf = firstHalf + "";
 						}
 						newRecord.add(firstHalf); //add first half of postcode to list.
