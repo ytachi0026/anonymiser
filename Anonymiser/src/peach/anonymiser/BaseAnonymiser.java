@@ -1,124 +1,212 @@
 package peach.anonymiser;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
-import org.deidentifier.arx.ARXAnonymizer;
-import org.deidentifier.arx.ARXConfiguration;
-import org.deidentifier.arx.ARXResult;
-import org.deidentifier.arx.Data;
-import org.deidentifier.arx.DataHandle;
-import org.deidentifier.arx.criteria.KAnonymity;
-import org.deidentifier.arx.io.CSVSyntax;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
+import org.bouncycastle.jcajce.provider.digest.SHA3;
 
 /**
  * This class is a superclass of all the CWTAnonymiser, COSDAnonymiser and SACTAnonymiser.
  * This class contains the methods that is common to all these Anonymiser's; namely 
- * accepting a CSV file and outputting a CSV file.
+ * accepting a CSV file, outputting a CSV file and hashing inputs.
  * 
  * @author Krinal
  *
  */
 public class BaseAnonymiser {
 	/**
-	 * The filepath of where to read the CSV file from
+	 * The filepath of the input CSV file.
 	 */
-	private String filepath;
-	/**
-	 * Data object to hold the CSV file contents as well as any additional information
-	 * about the data
-	 */
-	private Data data;
-	/**
-	 * The object that anonymises data
-	 */
-	private ARXAnonymizer anonymiser;
-	/**
-	 * The constructor sets the filepath field
-	 * @param filepath - the filepath of where the CSV file is stored
-	 * @throws IOException 
-	 */
+	private String inFilepath;
 	
+	/**
+	 * The filepath of the output CSV file.
+	 */
+	private String outFilepath;
 	
-	public BaseAnonymiser(String filepath) throws IOException {
-		setFilepath(filepath);
-		createData(filepath);
-		anonymiser = new ARXAnonymizer();
+	/**
+	 * The object that will parse the CSV file.
+	 */
+	private CSVParser parser;
+	
+	/**
+	 * The object that will store the headers of the input CSV file.
+	 */
+	private CSVRecord headerList;
+	
+	/**
+	 * The object that will output the newly constructed CSV file.
+	 */
+	private CSVPrinter csvFilePrinter;
+	
+	/**
+	 * A map of the header to its column index
+	 */
+	private HashMap<String, Integer> headerMap;
+	
+	/**
+	 * The object that will hash the input using SHA3.
+	 */
+	private SHA3.DigestSHA3 digestSHA3;
+	
+	/**
+	 * The constructor will set the inFilePath field with the input file path, and also
+	 * the outFilepath field with the output filepath.
+	 * @param inFilepath the filepath of the input CSV file.
+	 * @param outFilepath the filepath of the output CSV file.
+	 */
+	public BaseAnonymiser(String inFilepath, String outFilepath) {
+		this.inFilepath = inFilepath;
+		this.outFilepath = outFilepath;
 	}
 	
-	
 	/**
-	 * This method will create the data object from the csv file
-	 * @param filepath
-	 * @throws IOException 
+	 * Initialises the parser object and initiates objects to aid parsing. This includes
+	 * creating a list of headers and a mapping of headers to column indices.
 	 */
-	private void createData(String filepath) throws IOException {
-		this.setData(Data.create(filepath, Charset.defaultCharset(), ','));
-
-	}
-	
-	/**
-	 * This method will output the anonymised CSV data at filepath
-	 * @param filepath the filepath at where the anonymised data is to be outputted
-	 * @param anonymise the anonymised object
-	 * @throws IOException if file path does not exist
-	 */
-	public void outputCSV(String filepath, DataHandle anonymise) throws IOException {
-		File outputFile = new File(filepath);
-		CSVSyntax csvSyntax = new CSVSyntax();
-		csvSyntax.setDelimiter(',');
-		csvSyntax.setLinebreak(System.getProperty("line.separator"));
-		anonymise.save(outputFile, csvSyntax);
+	public void initParser() {
+		File csvData = new File(inFilepath);
 		
+		try {
+			parser = CSVParser.parse(csvData,  Charset.defaultCharset(), CSVFormat.DEFAULT);
+			createHeaderList();
+			createHeaderMap();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
-	 * This method will anonymise the data using k-anonymity. The value of k
-	 * is provided by the user.
-	 * @param k used for k-anonymity
-	 * @return the DataHandle after anonymising.
+	 * Creates a headerList by calling the iterator once to get the first row.
+	 * This is the header of a CSV file. All iterations after this will start from
+	 * the second row (first record).
+	 */
+	private void createHeaderList() {
+		Iterator<CSVRecord> it = parser.iterator();
+		headerList = it.next(); //get first row, which is the header
+	}
+	
+	/**
+	 * Creates a mapping between the header columns and their column indices. This will
+	 * helpful when constructing a new CSV file.
+	 */
+	private void createHeaderMap() {
+		
+		headerMap = new HashMap<String, Integer>();
+		int index = 0; //count index
+		for (String h: headerList) {
+			headerMap.put(h, index); //add attribute along with its index
+			index += 1;
+		}
+	}
+	
+	/**
+	 * Returns all the headers in the input CSV file in a list.
+	 * @return the all the headers in the input CSV file in a list.
+	 */
+	public CSVRecord getHeaderList() {
+		return headerList;
+	}
+	
+	/**
+	 * Returns a map of the headers and column indices.
+	 * @return a map of the headers and column indices.
+	 */
+	public HashMap<String, Integer> getHeaderMap() {
+		return headerMap;
+	}
+	
+	/**
+	 * Returns all the records in the input CSV file, except the first row 
+	 * (which is the header).
+	 * @return all the records in the input CSV file, except the first row.
 	 * @throws IOException
 	 */
-	public DataHandle anonymiseData(int k) throws IOException {
-		ARXConfiguration config = ARXConfiguration.create();
-		config.addPrivacyModel(new KAnonymity(k));
-		//config.setMaxOutliers(0.02);
-		ARXResult result = anonymiser.anonymize(getData(), config);
-		
-		return result.getOutput();
-		
+	public List<CSVRecord> getAllRecords() throws IOException {
+		return parser.getRecords();
 	}
 	
-	public void storeCSVData() {
-		
-	}
-	
-	public ArrayList<String> getCSVHeaders() {
-		return null;
-	}
 	/**
-	 * Returns the filepath of the input csv file
-	 * @return the filepath of the input csv file
+	 * Initialises the object that will perform the hashing on input.
 	 */
-	public String getFilepath() {
-		return filepath;
+	public void initHash() {
+		digestSHA3 = new SHA3.DigestSHA3(256);
+	}
+	
+	/**
+	 * Returns the bytes of the input after hashing.
+	 * @param input the input in bytes that is to be hashed.
+	 * @return
+	 */
+	public byte [] getHash(byte [] input) {
+		return digestSHA3.digest(input);
 	}
 
 	/**
-	 * Sets the filepath of the input csv file
-	 * @param filepath the input csv file
+	 * Initialises the CSVPrinter object that will be used to output the newly
+	 * constructed file. The destination will of the newly constructed CSV file
+	 * will be outFilepath.
 	 */
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
+	public void initCSVPrinter() {
+		FileWriter fileWriter; //output file stream
+		try {
+			fileWriter = new FileWriter(outFilepath);
+			csvFilePrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
 	}
-
-	public Data getData() {
-		return data;
+	
+	/**
+	 * Returns the CSVPrinter object used for outputting a new CSV file.
+	 * @return the CSVPrinter object used for outputting a new CSV file.
+	 */
+	public CSVPrinter getCSVPrinter() {
+		return csvFilePrinter;
 	}
-
-	public void setData(Data data) {
-		this.data = data;
+	
+	/**
+	 * Sets the filepath for the input CSV file with another CSV file
+	 * @param inFilepath a replacement of the input CSV file.
+	 */
+	public void setInFilepath(String inFilepath) {
+		this.inFilepath = inFilepath;
 	}
+	
+	/**
+	 * Returns the String of the input CSV filepath.
+	 * @return the Strign of the input CSV filepath.
+	 */
+	public String getInFilepath() {
+		return this.inFilepath;
+	}
+	
+	/**
+	 * Sets the output filepath with the new output filepath.
+	 * @param outFilepath the new output filepath 
+	 */
+	public void setOutFilepath(String outFilepath) {
+		this.outFilepath = outFilepath;
+	}
+	
+	/**
+	 * Retruns the filepath of the output CSV file.
+	 * @return the filepath of the output CSV file.
+	 */
+	public String getOutFilepath() {
+		return this.outFilepath;
+	}
+	
 }

@@ -2,20 +2,18 @@ package peach.anonymiser.cwt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.Charset;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
+import java.util.List;
+
+import java.io.IOException;
+
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import org.bouncycastle.jcajce.provider.digest.SHA3;
 import org.bouncycastle.util.encoders.Hex;
+
+import peach.anonymiser.Anonymiser;
+import peach.anonymiser.BaseAnonymiser;
 
 /**
  * This class creates an anonymiser for CWT data. It will accept a CSV file
@@ -23,7 +21,7 @@ import org.bouncycastle.util.encoders.Hex;
  * @author Krinal
  *
  */
-public class CWTAnonymiser {
+public class CWTAnonymiser extends BaseAnonymiser implements Anonymiser {
 	/**
 	 * The source CSV filepath.
 	 */
@@ -39,8 +37,9 @@ public class CWTAnonymiser {
 	 * @param outFilepath the output filepath of the anonymised CSV file
 	 */
 	public CWTAnonymiser(String inFilepath, String outFilepath) {
-		setInFilepath(inFilepath);
-		setOutFilepath(outFilepath);
+		//setInFilepath(inFilepath);
+		//setOutFilepath(outFilepath);
+		super(inFilepath, outFilepath);
 	}
 	
 	/**
@@ -51,24 +50,23 @@ public class CWTAnonymiser {
 	 * between the CSV headers and their indices to aid the process of anonymisation.
 	 * Any data in the sensitive attributes are hashed, replaced and outputted in a CSV file.
 	 */
+	@Override
 	public void anonymise() {
-		File csvData = new File(inFilepath);
 		
+		initParser();
 		try {
-			CSVParser parser = CSVParser.parse(csvData,  Charset.defaultCharset(), CSVFormat.DEFAULT);
-			Iterator<CSVRecord> it = parser.iterator();
-			CSVRecord header = it.next(); //get first row, which is the header
-			HashMap<String, Integer> headerMap = new HashMap<String, Integer>();
-			int index = 0; //count index
-			for (String h: header) {
-				headerMap.put(h, index); //add attribute along with its index
-				index += 1;
-			}
+
+			HashMap<String, Integer> headerMap = getHeaderMap();
+			CSVRecord headerList = getHeaderList();
+			List<CSVRecord> records = getAllRecords();
 			
-			List<CSVRecord> records = parser.getRecords();
-			FileWriter fileWriter = new FileWriter(outFilepath); //output file stream
-			CSVPrinter csvFilePrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
-			csvFilePrinter.printRecord(header); //output the header
+			
+			
+			initCSVPrinter();
+			CSVPrinter csvFilePrinter = getCSVPrinter();
+			csvFilePrinter.printRecord(headerList); //output the header
+			
+			initHash();
 			for (int row = 0; row < records.size(); row++) {
 				CSVRecord currentRecord = records.get(row);
 				ArrayList<String> newRecord = new ArrayList<String>();
@@ -84,8 +82,8 @@ public class CWTAnonymiser {
 							|| column == headerMap.get("Site Code (of Treatment Start Date Cancer)")) {
 						
 						
-						SHA3.DigestSHA3 digestSHA3 = new SHA3.DigestSHA3(512);
-						byte [] digest = digestSHA3.digest(currentElement.getBytes());
+						
+						byte [] digest = getHash(currentElement.getBytes());
 						newRecord.add(Hex.toHexString(digest));
 						
 					} else {
