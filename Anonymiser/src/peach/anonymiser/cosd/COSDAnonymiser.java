@@ -1,8 +1,6 @@
 package peach.anonymiser.cosd;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.csv.CSVPrinter;
@@ -11,6 +9,7 @@ import org.bouncycastle.util.encoders.Hex;
 
 import peach.anonymiser.Anonymiser;
 import peach.anonymiser.BaseAnonymiser;
+import peach.anonymiser.COSDIdentifier;
 
 public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
 
@@ -27,12 +26,11 @@ public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
 	 * Any data in the sensitive attributes are hashed, replaced and outputted in a CSV file.
 	 */
 	@Override
-	public void anonymise() {
+	public void anonymise() throws IllegalStateException{
 		
-		initParser();
 		try {
+			initParser();
 
-			HashMap<String, Integer> headerMap = getHeaderMap();
 			CSVRecord headerList = getHeaderList();
 			List<CSVRecord> records = getAllRecords();
 			
@@ -47,24 +45,16 @@ public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
 				for (int column = 0; column < currentRecord.size(); column++) {
 					
 					String currentElement = currentRecord.get(column);
-					if (column == headerMap.get("NHS Number") //sensitive attributes
-							|| column == headerMap.get("Local Patient Identifier")
-							|| column == headerMap.get("Person Family Name")
-							|| column == headerMap.get("Person Given Name")
-							|| column == headerMap.get("Person Family Name (At Birth)")
-							|| column == headerMap.get("Patient Usual Address (At Diagnosis)")
-							|| column == headerMap.get("Organisation Code (Code of Provider)")) {
-						
+					if(COSDIdentifier.isSensitive(column)) {
 						//hash sensitive attributes
 						byte [] digest = getHash(currentElement.getBytes());
 						newRecord.add(Hex.toHexString(digest));
-						
-					}  else if (column == headerMap.get("Patient Birth Date")) {
+					}  else if (COSDIdentifier.isIdentifierByID(COSDIdentifier.PATIENTE_BIRTH_DATE, column)) {
 						//remove the date of birth and just keep the year.
 						int endIndex = currentElement.indexOf("/");
 						String year = currentElement.substring(0, endIndex);
 						newRecord.add(year);
-					} else if (column == headerMap.get("Postcode of Usual Address (At Diagnosis)")) {
+					} else if (COSDIdentifier.isIdentifierByID(COSDIdentifier.POSTCODE_OF_USUAL_ADDRESS_AT_DIAGNOSIS, column)) {
 						//only keep first half of the postcode
 						currentElement = currentElement.replaceAll(" ", "");
 						String firstHalf = currentElement.substring(0, 2); //add first two chars
@@ -95,8 +85,9 @@ public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
 			csvFilePrinter.close();
 			
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			throw new IllegalStateException(e.getMessage());
 		}
 	}
 }

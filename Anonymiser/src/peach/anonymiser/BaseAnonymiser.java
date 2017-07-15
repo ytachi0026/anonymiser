@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
@@ -73,16 +72,14 @@ public class BaseAnonymiser {
 	 * Initialises the parser object and initiates objects to aid parsing. This includes
 	 * creating a list of headers and a mapping of headers to column indices.
 	 */
-	public void initParser() {
-		File csvData = new File(inFilepath);
-		
+	protected void initParser() throws IllegalStateException{
 		try {
+			File csvData = new File(inFilepath);
 			parser = CSVParser.parse(csvData,  Charset.defaultCharset(), CSVFormat.DEFAULT);
 			createHeaderList();
-			createHeaderMap();
-			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			throw new IllegalStateException(e.getMessage());
 		}
 	}
 	
@@ -92,22 +89,15 @@ public class BaseAnonymiser {
 	 * the second row (first record).
 	 */
 	private void createHeaderList() {
-		Iterator<CSVRecord> it = parser.iterator();
-		headerList = it.next(); //get first row, which is the header
-	}
-	
-	/**
-	 * Creates a mapping between the header columns and their column indices. This will
-	 * helpful when constructing a new CSV file.
-	 */
-	private void createHeaderMap() {
-		
-		headerMap = new HashMap<String, Integer>();
-		int index = 0; //count index
-		for (String h: headerList) {
-			headerMap.put(h, index); //add attribute along with its index
-			index += 1;
+		headerList = parser.iterator().next(); //get first row, which is the header
+		int index = 0;
+		for (String header: headerList) {
+			if(COSDIdentifier.hasToBeProcessed(header)) {
+				COSDIdentifier.updateIndex(header, index);
+			}
+			index++;
 		}
+
 	}
 	
 	/**
@@ -157,14 +147,13 @@ public class BaseAnonymiser {
 	 * constructed file. The destination will of the newly constructed CSV file
 	 * will be outFilepath.
 	 */
-	public void initCSVPrinter() {
-		FileWriter fileWriter; //output file stream
+	public void initCSVPrinter() throws IllegalStateException{
 		try {
-			fileWriter = new FileWriter(outFilepath);
+			FileWriter fileWriter = new FileWriter(outFilepath);
 			csvFilePrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new IllegalStateException(e.getMessage());
 		} 
 		
 	}
