@@ -1,19 +1,16 @@
 package peach.anonymiser.cwt;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import java.util.List;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
-
 import org.bouncycastle.util.encoders.Hex;
 
 import peach.anonymiser.Anonymiser;
 import peach.anonymiser.BaseAnonymiser;
+import peach.anonymiser.CWTIdentifier;
 
 /**
  * This class creates an anonymiser for CWT data. It will accept a CSV file
@@ -45,12 +42,8 @@ public class CWTAnonymiser extends BaseAnonymiser implements Anonymiser {
 		
 		initParser();
 		try {
-
-			HashMap<String, Integer> headerMap = getHeaderMap();
 			CSVRecord headerList = getHeaderList();
 			List<CSVRecord> records = getAllRecords();
-			
-			
 			
 			initCSVPrinter();
 			CSVPrinter csvFilePrinter = getCSVPrinter();
@@ -61,18 +54,8 @@ public class CWTAnonymiser extends BaseAnonymiser implements Anonymiser {
 				CSVRecord currentRecord = records.get(row);
 				ArrayList<String> newRecord = new ArrayList<String>();
 				for (int column = 0; column < currentRecord.size(); column++) {
-					
 					String currentElement = currentRecord.get(column);
-					if (column == headerMap.get("NHS Number") //sensitive attributes
-							|| column == headerMap.get("Patient Pathway Identifier (PPI)")
-							|| column == headerMap.get("Organisation Code (PPI Identifier)")
-							|| column == headerMap.get("Site Code (of Provider Consultant upgrade)")
-							|| column == headerMap.get("Site Code (of Provider First Seen)")
-							|| column == headerMap.get("Site Code (of Provider Decision To Treat Cancer)")
-							|| column == headerMap.get("Site Code (of Treatment Start Date Cancer)")) {
-						
-						
-						
+					if(CWTIdentifier.isSensitive(column)) {
 						byte [] digest = getHash(currentElement.getBytes());
 						newRecord.add(Hex.toHexString(digest));
 						
