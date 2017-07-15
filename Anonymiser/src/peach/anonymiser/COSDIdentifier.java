@@ -9,7 +9,7 @@ public enum COSDIdentifier {
 	PATIENT_USUAL_ADDRESS_AT_DIAGNOSIS(Constant.SENSITIVE,"Patient Usual Address (At Diagnosis)", 0), 
 	ORGANISATION_CODE_CODE_OF_PROVIDER(Constant.SENSITIVE, "Organisation Code (Code of Provider)", 0),
 
-	PATIENTE_BIRTH_DATE(Constant.QUASI_SENSITIVE, "Patient Birth Date", 0), 
+	PATIENT_BIRTH_DATE(Constant.QUASI_SENSITIVE, "Patient Birth Date", 0), 
 	POSTCODE_OF_USUAL_ADDRESS_AT_DIAGNOSIS(Constant.QUASI_SENSITIVE, "Postcode of Usual Address (At Diagnosis)", 0);
 
 	private final String type;

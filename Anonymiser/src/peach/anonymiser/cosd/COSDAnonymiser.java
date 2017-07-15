@@ -49,7 +49,7 @@ public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
 						//hash sensitive attributes
 						byte [] digest = getHash(currentElement.getBytes());
 						newRecord.add(Hex.toHexString(digest));
-					}  else if (COSDIdentifier.isIdentifierByID(COSDIdentifier.PATIENTE_BIRTH_DATE, column)) {
+					}  else if (COSDIdentifier.isIdentifierByID(COSDIdentifier.PATIENT_BIRTH_DATE, column)) {
 						//remove the date of birth and just keep the year.
 						int endIndex = currentElement.indexOf("/");
 						String year = currentElement.substring(0, endIndex);
