@@ -1,4 +1,4 @@
-package peach.anonymiser;
+package peach.anonymiser.bean;
 
 public class Constant {
 	public static final String SENSITIVE = "sensitive";

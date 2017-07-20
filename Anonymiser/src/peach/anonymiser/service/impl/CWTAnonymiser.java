@@ -1,4 +1,4 @@
-package peach.anonymiser.cwt;
+package peach.anonymiser.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,9 +8,9 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.bouncycastle.util.encoders.Hex;
 
-import peach.anonymiser.Anonymiser;
-import peach.anonymiser.BaseAnonymiser;
-import peach.anonymiser.CWTIdentifier;
+import peach.anonymiser.bean.CWTIdentifier;
+import peach.anonymiser.service.Anonymiser;
+import peach.anonymiser.service.BaseAnonymiser;
 
 /**
  * This class creates an anonymiser for CWT data. It will accept a CSV file

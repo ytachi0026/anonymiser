@@ -2,7 +2,7 @@ package peach.anonymiser.cwt;
 
 import java.io.IOException;
 
-import peach.anonymiser.cosd.COSDAnonymiser;
+import peach.anonymiser.service.impl.COSDAnonymiser;
 
 
 

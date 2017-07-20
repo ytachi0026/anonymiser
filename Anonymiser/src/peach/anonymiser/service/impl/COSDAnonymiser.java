@@ -1,4 +1,4 @@
-package peach.anonymiser.cosd;
+package peach.anonymiser.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,9 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.bouncycastle.util.encoders.Hex;
 
-import peach.anonymiser.Anonymiser;
-import peach.anonymiser.BaseAnonymiser;
-import peach.anonymiser.COSDIdentifier;
+import peach.anonymiser.bean.COSDIdentifier;
+import peach.anonymiser.service.Anonymiser;
+import peach.anonymiser.service.BaseAnonymiser;
 
 public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
 

@@ -1,4 +1,4 @@
-package peach.anonymiser;
+package peach.anonymiser.service;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,6 +12,8 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.bouncycastle.jcajce.provider.digest.SHA3;
+
+import peach.anonymiser.bean.COSDIdentifier;
 
 /**
  * This class is a superclass of all the CWTAnonymiser, COSDAnonymiser and SACTAnonymiser.

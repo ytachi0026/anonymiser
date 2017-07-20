@@ -1,4 +1,4 @@
-package peach.anonymiser;
+package peach.anonymiser.service;
 
 public interface Anonymiser {
 

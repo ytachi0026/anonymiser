@@ -1,4 +1,4 @@
-package peach.anonymiser;
+package peach.anonymiser.bean;
 
 public enum COSDIdentifier {
 	NHS_NUMBER(Constant.SENSITIVE, "NHS Number", 0), 
