@@ -10,7 +10,7 @@
   <meta name="author" content="">
 
 
-  <title>Home</title>
+  <title>PEACH Anonymiser</title>
 
   <!-- Bootstrap core CSS -->
   <link href="static/css/bootstrap.min.css" rel="stylesheet">
@@ -69,7 +69,7 @@
         <div class="row">
           <div class="col-sm-12 title-margin">
             <div class="form-group">
-              <input type="text" class="form-control borderless" placeholder="From">
+              <input id="fileToAnonymise" type="file" class="form-control borderless" name="uploadfile">
             </div>
           </div>
 
@@ -89,22 +89,10 @@
           </div>
 
         </div>
+        <center><a onclick="anonymiseFile()" class="btn anonymise-btn">Anonymise</center></a>
 
-        <div class="row">
-          <div class="col-sm-12 title-margin">
-            <div class="form-group">
-              <input type="text" class="form-control borderless" placeholder="To">
-            </div>
-
-          </div>
-
-
-        </div>
       </form>
     </div>
-
-    <center><a href="#" class="btn anonymise-btn">Anonymise</center></a>
-
 
 
   </div>
