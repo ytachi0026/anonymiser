@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.bouncycastle.util.encoders.Hex;
+import org.springframework.stereotype.Service;
 
 import peach.anonymiser.bean.CWTIdentifier;
 import peach.anonymiser.service.Anonymiser;

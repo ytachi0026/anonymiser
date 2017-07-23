@@ -1,38 +1,48 @@
+import $ from 'jquery';
+import { test } from './lib';
+
 const request = require('superagent');
-
-const test = 'http://localhost:8080/cods?description=hola';
-
+const downloadFile = 'http://localhost:8080/api/download';
 const uploadFileRest = 'http://localhost:8080/api/upload';
-const fileToAnonymise = 'fileToAnonymise';
 
-window.anonymiseFile = function() {
-  let files = document.getElementById(fileToAnonymise).files;
-  let formData = new FormData();
-
-  for (var key in files) {
-    console.log(key);
-
-    // is the item a File?
-    if (files.hasOwnProperty(key) && files[key] instanceof File) {
-      formData.append(key, files[key]);
-    }
-  }
-
+export const downloadAnonymisedVersion = () => {
   request
-    .post(uploadFileRest)
-    .send(formData)
-    .end(function(err, res) {
-      console.log(res.text);
-      console.log('d');
-    });
-
+  .get(downloadFile)
+  .end((err, res) => {
+    console.log('Error');
+    console.log(err);
+    console.log('Repsonse');
+    console.log(res);
+  });
 };
 
-window.test = function() {
-  request
-    .get(test)
-    .end(function(err, res) {
-      console.log(res.text);
-    });
+export const anonymiseForm = () => {
+  event.preventDefault();
+  let form = $('#formid')[0];
+  let data = new FormData(form); //clear val(''); for the form
+  $.ajax({
+    type: 'POST',
+    enctype: 'multipart/form-data',
+    cache: false,
+    contentType: false,
+    processData: false,
+    url: uploadFileRest,
+    data: data, // serializes the form's elements.
+    success: (data) => {
+      console.log(data);// $('#fileResultId').value(data);//href="http://localhost:8080/api/download?filename="
+      let urlAnonymitiy = 'http://localhost:8080/api/download?filename=' + data;
+      $('#btnDownload').attr('href', urlAnonymitiy);
+      $('#btnDownload').attr('download', data);
+      $('#btnDownload').show();
+    },
 
+    error: (e) => {
+      alert(e);
+    },
+  });
+};
+
+export const greetings = () => {
+  console.log('Ytalo. Elias.');
+  test();
 };

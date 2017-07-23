@@ -6,8 +6,10 @@
   "scripts": {
     "webpack": "./node_modules/.bin/webpack --config webpack.config.js",
     "babel": "babel --presets es2015 src/app.js -o dist/bundle.js",
-    "start": "http-server -p 9000",
-    "build": "./node_modules/.bin/gulp build"
+
+    "build": "./node_modules/.bin/gulp build",
+    "start": "http-server ./dist -p 3000",
+    "dev": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "PEACH",
@@ -20,8 +22,10 @@
     "gulp": "^3.9.1",
     "gulp-webpack": "^1.5.0",
     "http-server": "^0.10.0",
+    "loglevel": "^1.4.1",
     "superagent": "^3.5.2",
-    "webpack": "^3.3.0"
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.6.0"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",

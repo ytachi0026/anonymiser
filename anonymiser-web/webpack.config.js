@@ -5,7 +5,13 @@ module.exports = {
   entry: './src/app.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/js'),
+    libraryTarget: 'var',
+    library: 'EntryPoint',
+  },
+  devServer: {
+    contentBase: './dist',
+    port: 3000,
   },
   module: {
     loaders: [{

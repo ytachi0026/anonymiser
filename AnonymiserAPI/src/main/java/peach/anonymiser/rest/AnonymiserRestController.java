@@ -1,87 +1,134 @@
 package peach.anonymiser.rest;
 
-import java.io.IOException;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import peach.anonymiser.bean.CODS;
+import peach.anonymiser.bean.DATA_SET;
+import peach.anonymiser.service.impl.COSDAnonymiser;
+import peach.anonymiser.service.impl.CWTAnonymiser;
 
 @RestController
 public class AnonymiserRestController {
-	
-	//INFO curl http://localhost:8080/cods\?description\=dos
-	@CrossOrigin(origins= "http://127.0.0.1:9000")
-	@RequestMapping("/cods")
-	public CODS getCODSdataREST(@RequestParam(value="description", defaultValue="World")String description) {
-		
-		CODS data = new CODS();
-		data.setId(1);
-		data.setContent(description);		
-		return data;
-		
-	}	
-	
-	
-	
 	private static String UPLOADED_FOLDER = "/Users/ytachi/training/restupload/";
-	
-	//INFO curl -F file=@"/Users/ytachi/swprojects/PEACH-anonymiser/test" http://localhost:8080/api/upload/
-	@CrossOrigin(origins= "http://127.0.0.1:9000")
+
+	// INFO curl -F file=@"/Users/ytachi/swprojects/PEACH-anonymiser/test" http://localhost:8080/api/upload/
+	@CrossOrigin(origins = "http://127.0.0.1:3000")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping("/api/upload")
-	public ResponseEntity<?> uploadFile(@RequestParam("uploadfile") MultipartFile uploadfile) {
+	public ResponseEntity<?> uploadFile(@RequestParam("uploadfile") MultipartFile uploadfile,
+			@RequestParam("cancerDataType") String cancerDataType) {
+		System.out.println(cancerDataType);
+		DATA_SET cancerType = DATA_SET.valueOf(cancerDataType);
+		
+		if (uploadfile.isEmpty()) {
+			return new ResponseEntity("Please select a file!", HttpStatus.OK);
+		}
+		try {
+			String fileNameToBeAnonymised = saveUploadedFiles(Arrays.asList(uploadfile));
+			String anonymisedFileName = getAnonymisedFileName(fileNameToBeAnonymised);
+			
+			String input = UPLOADED_FOLDER + fileNameToBeAnonymised;
+			String output = UPLOADED_FOLDER + anonymisedFileName;
+			
+			switch (cancerType) {
+				case CWT:
+					System.out.println("cwt");
+					CWTAnonymiser cwt = new CWTAnonymiser(input, output);
+					cwt.anonymise();
+					break;
+				case COSD:
+					System.out.println("cods");
+					COSDAnonymiser cosd = new COSDAnonymiser(input, output);
+					cosd.anonymise();
+					break;
+				case SACT:
+					System.out.println("sact");
+					break;
+			}
+			return new ResponseEntity(anonymisedFileName, new HttpHeaders(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
-        if (uploadfile.isEmpty()) {
-            return new ResponseEntity("please select a file!", HttpStatus.OK);
-        }
+	@CrossOrigin(origins = "http://127.0.0.1:3000")
+	@RequestMapping(path = "/api/download", method = RequestMethod.GET)
+	public ResponseEntity<Resource> downloadAnonymisedFile(
+			@RequestParam(value = "filename", defaultValue = "error") String filename) {
+		try {
+			File file = new File(UPLOADED_FOLDER + filename);
+			Path path = Paths.get(file.getAbsolutePath());
+			ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+			HttpHeaders headers = new HttpHeaders();
+			return ResponseEntity.ok().headers(headers).contentLength(file.length())
+					.contentType(MediaType.parseMediaType("application/octet-stream")).body(resource);
+		} catch (Exception e) {
+			return new ResponseEntity("File cannot be downloaded.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-        try {
-            saveUploadedFiles(Arrays.asList(uploadfile));
-        } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+	}
 
-        return new ResponseEntity("Successfully uploaded - " +
-                uploadfile.getOriginalFilename(), new HttpHeaders(), HttpStatus.OK);
+	private boolean validFormatFile(MultipartFile file) {
+		if(file == null) {
+			return false;
+		}
+		if (file.isEmpty()) {
+			return false;
+		}
+		if (!file.getOriginalFilename().matches(".*.csv")) {
+			return false;
+		}
+		return true;
+	}
 
-    }
-	
-    private void saveUploadedFiles(List<MultipartFile> files) throws IOException {
-    		System.out.println("Solution");
-        for (MultipartFile file : files) {
-        		System.out.println("first file");
-			System.out.println(file);
+	private String getFileNameToBeAnonymised(String fileName) {
+		StringBuilder anonymisedFileName = new StringBuilder();
+		anonymisedFileName.append("_anony_");
+		anonymisedFileName.append(fileName);
+		return anonymisedFileName.toString();
+	}
+	private String getAnonymisedFileName(String fileName) {
+		StringBuilder anonymisedFileName = new StringBuilder();
+		anonymisedFileName.append("_out_");
+		anonymisedFileName.append(fileName);
+		return anonymisedFileName.toString();
+	}
 
-            if (file.isEmpty()) {
-                continue; //next pls
-            }
+	private String saveUploadedFiles(List<MultipartFile> files) throws IllegalStateException {
+		for (MultipartFile file : files) {
+			if (!validFormatFile(file)) {
+				throw new IllegalStateException("The file does not match a Health file format.");
+			}
 
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
-
-        }
-
-    }
-	
-	
-	
-	
-	
-	
-	
-
+			try {
+				byte[] bytes = file.getBytes();
+				String anonymisedFileName = getFileNameToBeAnonymised(file.getOriginalFilename());
+				Path path = Paths.get(UPLOADED_FOLDER + anonymisedFileName);
+				Files.write(path, bytes);
+				return anonymisedFileName;
+			} catch (Exception e) {
+				throw new IllegalStateException("Fail to obtain the file to be anonymised.");
+			}
+		}
+		throw new IllegalStateException("File does not exits.");
+	}
 
 }

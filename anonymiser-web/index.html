@@ -13,18 +13,24 @@
   <title>PEACH Anonymiser</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <link href="static/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
+  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
   <!--Link own stylesheet -->
-  <link href="static/css/styles.css" rel="stylesheet" type="text/css" />
+  <link href="css/styles.css" rel="stylesheet" type="text/css" />
 
-  <script src="static/js/jquery.min.js"></script>
-  <script src="static/js/bootstrap.min.js"></script>
-  <script src="dist/bundle.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bundle.js"></script>
+  <script>
+    window.onload = () => {
+      EntryPoint.greetings();
+      $('#btnDownload').hide();
+    };
+  </script>
+
 
 </head>
 
@@ -41,7 +47,7 @@
             <span class="icon-bar"></span>
           </button>
         <a class="navbar-brand" href="#">
-            <img src = "./static/images/peach-logo.png"/>
+            <img src = "images/peach-logo.png"/>
           </a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
@@ -62,10 +68,11 @@
                 <center><a href="#" class="btn my-button">ENTER</center></a>
               </div> -->
     <h1>Anonymiser</h1>
-    <h4>A tool to pseudo-anonymise cancer data </h4>
+    <h4>A tool to pseudo-anonymise cancer data.</h4>
 
     <div class="container my-container">
-      <form>
+      <form id="formid" action="http://localhost:8080/api/upload" method="post" enctype="multipart/form-data">
+        <input type="hidden" value="" id="fileResultId">
         <div class="row">
           <div class="col-sm-12 title-margin">
             <div class="form-group">
@@ -77,19 +84,22 @@
           <div class="col-sm-12">
             <div class="btn-group btn-group-justified" data-toggle="buttons">
               <label class="btn btn-primary active">
-                              <input type="radio" name="cancer-data-type" id="option-cwt" autocomplete="off" checked> CWT
+                              <input type="radio" name="cancerDataType" value="CWT" id="option-cwt" autocomplete="off" checked> CWT
                             </label>
               <label class="btn btn-primary">
-                              <input type="radio" name="cancer-data-type" id="option-cosd" autocomplete="off"> COSD
+                              <input type="radio" name="cancerDataType" value="COSD" id="option-cosd" autocomplete="off"> COSD
                             </label>
               <label class="btn btn-primary">
-                              <input type="radio" name="cancer-data-type" id="option-sact" autocomplete="off"> SACT
+                              <input type="radio" name="cancerDataType" value="SACT" id="option-sact" autocomplete="off"> SACT
                             </label>
             </div>
           </div>
 
         </div>
-        <center><a onclick="anonymiseFile()" class="btn anonymise-btn">Anonymise</center></a>
+        <center><a id="btnAnonymise" onclick="EntryPoint.anonymiseForm()" class="btn anonymise-btn">Anonymise</a>
+          <center>
+            <center><a id="btnDownload" target="_self"  class="btn anonymise-btn">Download me!</a>
+              <center>
 
       </form>
     </div>
