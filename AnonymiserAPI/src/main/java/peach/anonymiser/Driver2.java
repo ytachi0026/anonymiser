@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import peach.anonymiser.service.impl.COSDAnonymiser;
 import peach.anonymiser.service.impl.CWTAnonymiser;
+import peach.anonymiser.service.impl.SACTAnonymiser;
 
 
 
@@ -24,7 +25,7 @@ public class Driver2 {
 				
 				int anonymiserType = scanner.nextInt();
 				
-				if (anonymiserType == 1 || anonymiserType == 2) {
+				if (anonymiserType == 1 || anonymiserType == 2 || anonymiserType == 3) {
 					System.out.println("Enter the file path of the input data. Use '/' to denote subdirectories. End with "
 							+ "<filename>.csv. Alternatively, if it is stored in your current working directory, just enter "
 							+ "<filename>.csv ");
@@ -53,9 +54,12 @@ public class Driver2 {
 					if (anonymiserType == 1) {
 						CWTAnonymiser cwt = new CWTAnonymiser(input, output);
 						cwt.anonymise();
-					} else {
+					} else if (anonymiserType == 2){
 						COSDAnonymiser cosd = new COSDAnonymiser(input, output);
 						cosd.anonymise();
+					} else if (anonymiserType == 3) {
+						SACTAnonymiser sact = new SACTAnonymiser(input, output);
+						sact.anonymise();
 					}
 					System.out.println("Anonymization completed.");
 					completed = true;

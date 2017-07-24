@@ -50,6 +50,17 @@ public class CWTAnonymiser extends BaseAnonymiser implements Anonymiser {
 			CSVPrinter csvFilePrinter = getCSVPrinter();
 			csvFilePrinter.printRecord(headerList); //output the header
 			
+			int index = 0;
+			for (CWTIdentifier identifier: CWTIdentifier.values()) {
+				for (String header: headerList) {
+					if (identifier.getDescription().equals(header)) {
+						identifier.setIndex(index);
+						break;
+					}
+				}
+				index += 1;
+			}
+			
 			initHash();
 			for (int row = 0; row < records.size(); row++) {
 				CSVRecord currentRecord = records.get(row);

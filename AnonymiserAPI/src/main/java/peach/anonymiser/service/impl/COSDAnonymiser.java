@@ -51,8 +51,14 @@ public class COSDAnonymiser extends BaseAnonymiser implements Anonymiser {
 						newRecord.add(Hex.toHexString(digest));
 					}  else if (COSDIdentifier.isIdentifierByID(COSDIdentifier.PATIENT_BIRTH_DATE, column)) {
 						//remove the date of birth and just keep the year.
-						int endIndex = currentElement.indexOf("/");
-						String year = currentElement.substring(0, endIndex);
+						String dateComponents [] = currentElement.split("/");
+						String year = "";
+						for (String component: dateComponents) {
+							if (component.length() == 4) {
+								year = component;
+								break;
+							}
+						}
 						newRecord.add(year);
 					} else if (COSDIdentifier.isIdentifierByID(COSDIdentifier.POSTCODE_OF_USUAL_ADDRESS_AT_DIAGNOSIS, column)) {
 						//only keep first half of the postcode

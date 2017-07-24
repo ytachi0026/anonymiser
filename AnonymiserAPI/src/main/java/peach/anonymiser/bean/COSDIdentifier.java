@@ -38,6 +38,8 @@ public enum COSDIdentifier {
 		return false;
 	}
 
+	
+
 	public static boolean isIdentifierByID(COSDIdentifier identifier, Integer column) {
 		if (identifier.getIndex() == column) {
 			return true;
