@@ -26,6 +26,8 @@
   <script src="js/bundle.js"></script>
   <script>
     window.onload = () => {
+      document.getElementById('fileToAnonymise').addEventListener('change', EntryPoint.readFile, false);
+
       EntryPoint.greetings();
       $('#btnDownload').hide();
     };
@@ -76,7 +78,7 @@
         <div class="row">
           <div class="col-sm-12 title-margin">
             <div class="form-group">
-              <input id="fileToAnonymise" type="file" class="form-control borderless" name="uploadfile">
+              <input id="fileToAnonymise" type="file" class="form-control borderless" name="uploadfile" enctype="multipart/form-data">
             </div>
           </div>
 
@@ -96,7 +98,7 @@
           </div>
 
         </div>
-        <center><a id="btnAnonymise" onclick="EntryPoint.anonymiseForm()" class="btn anonymise-btn">Anonymise</a>
+        <center><a id="btnAnonymise" onclick="EntryPoint.readFileFromHTML()" class="btn anonymise-btn">Anonymise</a>
           <center>
             <center><a id="btnDownload" target="_self"  class="btn anonymise-btn">Download me!</a>
               <center>

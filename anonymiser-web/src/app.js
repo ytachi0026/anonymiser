@@ -1,26 +1,36 @@
 import $ from 'jquery';
-import { test } from './lib';
-
 const request = require('superagent');
+
 const downloadFile = 'http://localhost:8080/api/download';
 const uploadFileRest = 'http://localhost:8080/api/upload';
-const fs = requite('fs');
 
-export const readFile = () => {
-  fs.readFile('/Users/ytachi/swprojects/PEACH-anonymiser/test', (err, data) => {
-    console.log(data);
-  });
+export const readFileFromHTML = () => {
+  let oFile = $('#fileToAnonymise').files;
+  console.log(oFile);
+};
+
+export const readFile = (evt) => {
+  let files = evt.target.files;
+  let file = files[0];
+  console.log(file);
+  let reader = new FileReader();
+  reader.onload = (event) => {
+    let result = event.target.result;
+    console.log(result);
+  };
+
+  reader.readAsArrayBuffer(file);
 };
 
 export const downloadAnonymisedVersion = () => {
   request
-  .get(downloadFile)
-  .end((err, res) => {
-    console.log('Error');
-    console.log(err);
-    console.log('Repsonse');
-    console.log(res);
-  });
+    .get(downloadFile)
+    .end((err, res) => {
+      console.log('Error');
+      console.log(err);
+      console.log('Repsonse');
+      console.log(res);
+    });
 };
 
 export const anonymiseForm = () => {
@@ -36,7 +46,7 @@ export const anonymiseForm = () => {
     url: uploadFileRest,
     data: data, // serializes the form's elements.
     success: (data) => {
-      console.log(data);// $('#fileResultId').value(data);//href="http://localhost:8080/api/download?filename="
+      console.log(data); // $('#fileResultId').value(data);//href="http://localhost:8080/api/download?filename="
       let urlAnonymitiy = 'http://localhost:8080/api/download?filename=' + data;
       $('#btnDownload').attr('href', urlAnonymitiy);
       $('#btnDownload').attr('download', data);
@@ -51,5 +61,4 @@ export const anonymiseForm = () => {
 
 export const greetings = () => {
   console.log('Ytalo. Elias.');
-  test();
 };
