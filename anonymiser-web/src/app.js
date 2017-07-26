@@ -4,6 +4,13 @@ import { test } from './lib';
 const request = require('superagent');
 const downloadFile = 'http://localhost:8080/api/download';
 const uploadFileRest = 'http://localhost:8080/api/upload';
+const fs = requite('fs');
+
+export const readFile = () => {
+  fs.readFile('/Users/ytachi/swprojects/PEACH-anonymiser/test', (err, data) => {
+    console.log(data);
+  });
+};
 
 export const downloadAnonymisedVersion = () => {
   request
