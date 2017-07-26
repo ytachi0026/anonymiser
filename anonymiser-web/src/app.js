@@ -4,6 +4,10 @@ const request = require('superagent');
 const downloadFile = 'http://localhost:8080/api/download';
 const uploadFileRest = 'http://localhost:8080/api/upload';
 
+export const greetings = () => {
+  console.log('Ytalo. Elias.');
+};
+
 export const readFileFromHTML = () => {
   let oFile = $('#fileToAnonymise').files;
   console.log(oFile);
@@ -57,8 +61,4 @@ export const anonymiseForm = () => {
       alert(e);
     },
   });
-};
-
-export const greetings = () => {
-  console.log('Ytalo. Elias.');
 };
