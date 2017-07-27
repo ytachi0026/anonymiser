@@ -1,17 +1,17 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+console.log(path.resolve(__dirname, 'dist/js'));
 module.exports = {
   entry: './src/app.js',
+  devtool: 'inline-source-map',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist/js'),
     libraryTarget: 'var',
     library: 'EntryPoint',
-  },
-  devServer: {
-    contentBase: './dist',
-    port: 3000,
   },
   module: {
     loaders: [{
@@ -27,5 +27,7 @@ module.exports = {
   stats: {
     colors: true,
   },
-  devtool: 'source-map',
+  plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+    ],
 };

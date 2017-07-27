@@ -24,12 +24,13 @@ gulp.task('dependencies', () => {
   gulp.src('node_modules/bootstrap/dist/js/bootstrap.min.js')
     .pipe(gulp.dest('./dist/js'));
   gulp.src('./static/images/peach-logo.png')
-      .pipe(gulp.dest('./dist/images'));
+    .pipe(gulp.dest('./dist/images'));
   gulp.src('./index.html')
     .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('build', ['dependencies'], () => {
+  console.log('Building the project.');
   return gulp.src('src/app.js')
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest('dist/js'));
