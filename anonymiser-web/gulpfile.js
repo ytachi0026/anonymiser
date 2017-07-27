@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const webpack = require('gulp-webpack');
+const webpackDevServer = require('webpack-dev-server');
 
 /* Copy dependencies for web development*/
 gulp.task('dev', () => {

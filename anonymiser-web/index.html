@@ -26,10 +26,7 @@
   <script src="js/bundle.js"></script>
   <script>
     window.onload = () => {
-      document.getElementById('fileToAnonymise').addEventListener('change', EntryPoint.readFile, false);
-
       EntryPoint.greetings();
-      $('#btnDownload').hide();
     };
   </script>
 
@@ -98,11 +95,8 @@
           </div>
 
         </div>
-        <center><a id="btnAnonymise" onclick="EntryPoint.readFileFromHTML()" class="btn anonymise-btn">Anonymise</a>
+        <center><a id="btnAnonymise" onclick="EntryPoint.processFile()" class="btn anonymise-btn">Anonymise</a>
           <center>
-            <center><a id="btnDownload" target="_self"  class="btn anonymise-btn">Download me!</a>
-              <center>
-
       </form>
     </div>
 

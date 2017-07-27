@@ -1,16 +1,31 @@
 import $ from 'jquery';
-const request = require('superagent');
+import {
+  hash256Information
+} from './sha256';
+import {
+  cwtSensitive
+} from './ent/data';
+import {
+  downloadCSVFile
+} from './download';
 
-const downloadFile = 'http://localhost:8080/api/download';
-const uploadFileRest = 'http://localhost:8080/api/upload';
+const request = require('superagent');
+const papa = require('papaparse');
 
 export const greetings = () => {
-  console.log('Ytalo. Elias.');
+  console.log('Testing the library for PEACH. KKK');
 };
 
-export const readFileFromHTML = () => {
-  let oFile = $('#fileToAnonymise').files;
-  console.log(oFile);
+export const processFile = () => {
+  let $fileToBeProcessed = $('#fileToAnonymise')[0].files[0];
+  let $cancerDataType = $("input[name='cancerDataType']:checked").val();
+  console.log($fileToBeProcessed);
+  if ($fileToBeProcessed) {
+    console.log('BEGIN.');
+    console.log($cancerDataType);
+  } else {
+    alert('Please, select a file.');
+  }
 };
 
 export const readFile = (evt) => {
@@ -20,13 +35,31 @@ export const readFile = (evt) => {
   let reader = new FileReader();
   reader.onload = (event) => {
     let result = event.target.result;
-    console.log(result);
+
+    papa.parse(result, {
+      header: true,
+      complete: (results) => {
+        results.data.forEach((item, index) => {
+          cwtSensitive.forEach((identifier) => {
+            if (item[identifier]) {
+              item[identifier] = hash256Information(item[identifier]);
+            }
+          });
+        });
+
+        let csvAnonimised = papa.unparse(results.data);
+        downloadCSVFile('test.csv', csvAnonimised);
+      },
+    });
   };
 
-  reader.readAsArrayBuffer(file);
+  reader.readAsText(file);
 };
 
-export const downloadAnonymisedVersion = () => {
+//Previous version, where the file was uploaded to the server and processed there
+const downloadFile = 'http://localhost:8080/api/download';
+const uploadFileRest = 'http://localhost:8080/api/upload';
+export const downloadServerProcessedAnonymisedFile = () => {
   request
     .get(downloadFile)
     .end((err, res) => {
@@ -37,7 +70,7 @@ export const downloadAnonymisedVersion = () => {
     });
 };
 
-export const anonymiseForm = () => {
+export const uploadToServerTheFileToBeAnonymised = () => {
   event.preventDefault();
   let form = $('#formid')[0];
   let data = new FormData(form); //clear val(''); for the form
