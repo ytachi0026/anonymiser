@@ -4,14 +4,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 console.log(path.resolve(__dirname, 'dist/js'));
+
 module.exports = {
   entry: './src/app.js',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist/js'),
+    path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'var',
     library: 'EntryPoint',
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    hot: true,
   },
   module: {
     loaders: [{
@@ -28,6 +33,6 @@ module.exports = {
     colors: true,
   },
   plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-    ],
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 };

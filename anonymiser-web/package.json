@@ -5,12 +5,11 @@
   "main": "index.html",
   "scripts": {
     "dependencies": "./node_modules/.bin/gulp dependencies",
-    "build-client": "./node_modules/.bin/webpack --config webpack.config.js",
-    "startdev": "./node_modules/.bin/webpack-dev-server --content-base ./dist --open --hotOnly --port 3000",
-    "start" : "./node_modules/.bin/http-server ./dist -p 3000",
-    "dev": "npm run build-client && npm run dependencies && npm run start"
+    "build-client": "./node_modules/.bin/webpack --config webpack.config.js --progress --display-error-details --bail",
+    "httpdev": "./node_modules/.bin/webpack-dev-server",
+    "build": "npm run build-client && npm run dependencies",
+    "dev": "npm run build && npm run httpdev"
   },
-  "keywords": [],
   "author": "PEACH",
   "license": "MIT",
   "devDependencies": {
@@ -20,6 +19,7 @@
     "babel-preset-es2015": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.4",
+    "express": "^4.15.3",
     "fs-loader": "0.0.1",
     "gulp": "^3.9.1",
     "gulp-webpack": "^1.5.0",
@@ -28,15 +28,18 @@
     "jsonfile": "^3.0.1",
     "loglevel": "^1.4.1",
     "papaparse": "^4.3.5",
+    "path": "^0.12.7",
+    "serve-static": "^1.12.3",
     "style-loader": "^0.18.2",
     "superagent": "^3.5.2",
     "webpack": "3.3.0",
+    "webpack-dev-middleware": "^1.11.0",
     "webpack-dev-server": "^2.6.0",
-    "xml2json": "^0.11.0"
+    "xml2js": "^0.4.17",
+    "lodash": "^4.17.4"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1",
-    "lodash": "^4.17.4"
+    "jquery": "^3.2.1"
   }
 }

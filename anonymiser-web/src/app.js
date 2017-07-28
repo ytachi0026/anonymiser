@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { anonymiseCWTdata } from './anonymiser';
+import { anonymiseCWTdata, anonymiseCOSDdata } from './anonymiser';
 
 export const greetings = () => {
   console.log('Testing the library for PEACH.');
@@ -12,7 +12,15 @@ export const processFile = () => {
   if ($fileToBeProcessed) {
     console.log('BEGIN.');
     console.log($cancerDataType);
-    anonymiseCWTdata($fileToBeProcessed);
+    if ($cancerDataType == 'CWT') {
+      console.log('CWT processing');
+      anonymiseCWTdata($fileToBeProcessed);
+    } else if ($cancerDataType == 'COSD') {
+      console.log('COSD processing');
+      anonymiseCOSDdata($fileToBeProcessed);
+    } else if ($cancerDataType == 'SACT') {
+      alert('SACT to be implemented.');
+    }
   } else {
     alert('Please, select a file.');
   }

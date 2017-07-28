@@ -1,183 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <COSD:COSD xmlns:COSD="http://www.datadictionary.nhs.uk/messages/COSD-v7-0" xsi:schemaLocation="http://www.datadictionary.nhs.uk/messages/COSD-v7-0 COSDCOSDXMLSchema-v7-0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<Id root="60E8A409-24B6-4ADC-9C96-0273F668BDC8"/> <OrgCodeSubmitter extension="AB1"/>
-<RecordCount value="1"/> <ReportingPeriodStartDate>1900-01-01</ReportingPeriodStartDate> <ReportingPeriodEndDate>1900-01-01</ReportingPeriodEndDate> <FileCreationDateTime>1900-02-01T10:11:12</FileCreationDateTime> <COSDRecord>
-<Id root="0C0219F4-B3A5-420F-9C85-AC01910191B7"/> <Lung>
-<LungCore> <LungCoreLinkagePatientId>
-<NHSNumber extension="1234567890"/> <LocalPatientId>AB123456</LocalPatientId> <NHSNumberStatusIndicator code="03"/> <Birthdate>1900-01-01</Birthdate> <OrgCodeOfProvider extension="AB1"/>
-</LungCoreLinkagePatientId> <LungCoreLinkageDiagnosis>
-<PrimaryDiagnosis code="C343"/>
-<TumourLaterality code="L"/> <ClinicalDateCancerDiagnosis>1900-01-01</ClinicalDateCancerDiagnosis>
-</LungCoreLinkageDiagnosis> <LungCoreDemographics>
-<PersonFamilyName> <family>SMITH</family>
-</PersonFamilyName> <PersonGivenName>
-<given>JOHN</given> </PersonGivenName> <Address>
-<UnstructuredAddress>
-<streetAddressLine>123 Main Road</streetAddressLine>
-</UnstructuredAddress> </Address>
-<Postcode>
-<postalCode>AB1 2CD</postalCode> </Postcode>
-<Gender code="1"/>
-<GMPSpecified extension="G1234566"/> <GMPRegistration extension="F12345"/> <Ethnicity code="K"/>
-</LungCoreDemographics> <LungCoreReferralAndPatientPathway>
-<ReferralToTreatmentStartDate>1900-01-01</ReferralToTreatmentStartDate> <DateFirstSeen>1900-01-01</DateFirstSeen>
-<ConsultantCode extension="C1234567"/>
-<SourceOfReferralOutPatients code="03"/> <FirstProviderSiteCode extension="AB101"/> <CancerOrSymptomaticBreastReferralPatientStatus code="08"/>
-</LungCoreReferralAndPatientPathway> <LungCoreDiagnosis>
-<BasisOfCancerDiagnosis code="2"/>
-<CancerRecurrenceCarePlanInd code="NN"/> </LungCoreDiagnosis> <LungCoreCancerCarePlan>
-<MultiDiscTeamDiscussionInd code="A"/> <CancerMultiTeamDiscussionDate>1900-01-01</CancerMultiTeamDiscussionDate> <LungCancerCarePlan>
-<SmokingStatus code="1"/>
-<MedistinalSamplingInd code="N"/> </LungCancerCarePlan>
-</LungCoreCancerCarePlan> <LungCoreStaging>
-<FinalPreTreatmentTCategory>2b</FinalPreTreatmentTCategory> <FinalPreTreatmentNCategory>2</FinalPreTreatmentNCategory> <FinalPreTreatmentMCategory>0</FinalPreTreatmentMCategory> <FinalPreTreatmentTNMStageGrouping>3A</FinalPreTreatmentTNMStageGrouping> <TNMEditionNumber>7</TNMEditionNumber>
-</LungCoreStaging> <LungCoreTreatment>
-<CancerTreatmentEventType code="01"/> <CancerTreatmentStartDate>1900-01-01</CancerTreatmentStartDate> <CancerTreatmentModality code="08"/> <ProviderTreatmentStartSiteCode extension="AB101"/> <ConsultantCode extension="C1234567"/> <LungCoreActiveMonitoring>
-<MonitoringIntent code="2"/> </LungCoreActiveMonitoring>
-</LungCoreTreatment> </LungCore>
-</Lung> </COSDRecord>
-
-<COSDRecord>
-<Id root="0C0219F4-B3A5-420F-9C85-AC01910191B7"/> <Lung>
-<LungCore> <LungCoreLinkagePatientId>
-<NHSNumber extension="1234567890"/> <LocalPatientId>AB123456</LocalPatientId> <NHSNumberStatusIndicator code="03"/> <Birthdate>1900-01-01</Birthdate> <OrgCodeOfProvider extension="AB1"/>
-</LungCoreLinkagePatientId> <LungCoreLinkageDiagnosis>
-<PrimaryDiagnosis code="C343"/>
-<TumourLaterality code="L"/> <ClinicalDateCancerDiagnosis>1900-01-01</ClinicalDateCancerDiagnosis>
-</LungCoreLinkageDiagnosis> <LungCoreDemographics>
-<PersonFamilyName> <family>SMITH</family>
-</PersonFamilyName> <PersonGivenName>
-<given>JOHN</given> </PersonGivenName> <Address>
-<UnstructuredAddress>
-<streetAddressLine>123 Main Road</streetAddressLine>
-</UnstructuredAddress> </Address>
-<Postcode>
-<postalCode>AB1 2CD</postalCode> </Postcode>
-<Gender code="1"/>
-<GMPSpecified extension="G1234566"/> <GMPRegistration extension="F12345"/> <Ethnicity code="K"/>
-</LungCoreDemographics> <LungCoreReferralAndPatientPathway>
-<ReferralToTreatmentStartDate>1900-01-01</ReferralToTreatmentStartDate> <DateFirstSeen>1900-01-01</DateFirstSeen>
-<ConsultantCode extension="C1234567"/>
-<SourceOfReferralOutPatients code="03"/> <FirstProviderSiteCode extension="AB101"/> <CancerOrSymptomaticBreastReferralPatientStatus code="08"/>
-</LungCoreReferralAndPatientPathway> <LungCoreDiagnosis>
-<BasisOfCancerDiagnosis code="2"/>
-<CancerRecurrenceCarePlanInd code="NN"/> </LungCoreDiagnosis> <LungCoreCancerCarePlan>
-<MultiDiscTeamDiscussionInd code="A"/> <CancerMultiTeamDiscussionDate>1900-01-01</CancerMultiTeamDiscussionDate> <LungCancerCarePlan>
-<SmokingStatus code="1"/>
-<MedistinalSamplingInd code="N"/> </LungCancerCarePlan>
-</LungCoreCancerCarePlan> <LungCoreStaging>
-<FinalPreTreatmentTCategory>2b</FinalPreTreatmentTCategory> <FinalPreTreatmentNCategory>2</FinalPreTreatmentNCategory> <FinalPreTreatmentMCategory>0</FinalPreTreatmentMCategory> <FinalPreTreatmentTNMStageGrouping>3A</FinalPreTreatmentTNMStageGrouping> <TNMEditionNumber>7</TNMEditionNumber>
-</LungCoreStaging> <LungCoreTreatment>
-<CancerTreatmentEventType code="01"/> <CancerTreatmentStartDate>1900-01-01</CancerTreatmentStartDate> <CancerTreatmentModality code="08"/> <ProviderTreatmentStartSiteCode extension="AB101"/> <ConsultantCode extension="C1234567"/> <LungCoreActiveMonitoring>
-<MonitoringIntent code="2"/> </LungCoreActiveMonitoring>
-</LungCoreTreatment> </LungCore>
-</Lung> </COSDRecord>
-
-<COSDRecord>
-<Id root="0C0219F4-B3A5-420F-9C85-AC01910191B7"/> <Lung>
-<LungCore> <LungCoreLinkagePatientId>
-<NHSNumber extension="1234567890"/> <LocalPatientId>AB123456</LocalPatientId> <NHSNumberStatusIndicator code="03"/> <Birthdate>1900-01-01</Birthdate> <OrgCodeOfProvider extension="AB1"/>
-</LungCoreLinkagePatientId> <LungCoreLinkageDiagnosis>
-<PrimaryDiagnosis code="C343"/>
-<TumourLaterality code="L"/> <ClinicalDateCancerDiagnosis>1900-01-01</ClinicalDateCancerDiagnosis>
-</LungCoreLinkageDiagnosis> <LungCoreDemographics>
-<PersonFamilyName> <family>SMITH</family>
-</PersonFamilyName> <PersonGivenName>
-<given>JOHN</given> </PersonGivenName> <Address>
-<UnstructuredAddress>
-<streetAddressLine>123 Main Road</streetAddressLine>
-</UnstructuredAddress> </Address>
-<Postcode>
-<postalCode>AB1 2CD</postalCode> </Postcode>
-<Gender code="1"/>
-<GMPSpecified extension="G1234566"/> <GMPRegistration extension="F12345"/> <Ethnicity code="K"/>
-</LungCoreDemographics> <LungCoreReferralAndPatientPathway>
-<ReferralToTreatmentStartDate>1900-01-01</ReferralToTreatmentStartDate> <DateFirstSeen>1900-01-01</DateFirstSeen>
-<ConsultantCode extension="C1234567"/>
-<SourceOfReferralOutPatients code="03"/> <FirstProviderSiteCode extension="AB101"/> <CancerOrSymptomaticBreastReferralPatientStatus code="08"/>
-</LungCoreReferralAndPatientPathway> <LungCoreDiagnosis>
-<BasisOfCancerDiagnosis code="2"/>
-<CancerRecurrenceCarePlanInd code="NN"/> </LungCoreDiagnosis> <LungCoreCancerCarePlan>
-<MultiDiscTeamDiscussionInd code="A"/> <CancerMultiTeamDiscussionDate>1900-01-01</CancerMultiTeamDiscussionDate> <LungCancerCarePlan>
-<SmokingStatus code="1"/>
-<MedistinalSamplingInd code="N"/> </LungCancerCarePlan>
-</LungCoreCancerCarePlan> <LungCoreStaging>
-<FinalPreTreatmentTCategory>2b</FinalPreTreatmentTCategory> <FinalPreTreatmentNCategory>2</FinalPreTreatmentNCategory> <FinalPreTreatmentMCategory>0</FinalPreTreatmentMCategory> <FinalPreTreatmentTNMStageGrouping>3A</FinalPreTreatmentTNMStageGrouping> <TNMEditionNumber>7</TNMEditionNumber>
-</LungCoreStaging> <LungCoreTreatment>
-<CancerTreatmentEventType code="01"/> <CancerTreatmentStartDate>1900-01-01</CancerTreatmentStartDate> <CancerTreatmentModality code="08"/> <ProviderTreatmentStartSiteCode extension="AB101"/> <ConsultantCode extension="C1234567"/> <LungCoreActiveMonitoring>
-<MonitoringIntent code="2"/> </LungCoreActiveMonitoring>
-</LungCoreTreatment> </LungCore>
-</Lung> </COSDRecord>
-
-<COSDRecord>
-<Id root="0C0219F4-B3A5-420F-9C85-AC01910191B7"/> <Lung>
-<LungCore> <LungCoreLinkagePatientId>
-<NHSNumber extension="1234567890"/> <LocalPatientId>AB123456</LocalPatientId> <NHSNumberStatusIndicator code="03"/> <Birthdate>1900-01-01</Birthdate> <OrgCodeOfProvider extension="AB1"/>
-</LungCoreLinkagePatientId> <LungCoreLinkageDiagnosis>
-<PrimaryDiagnosis code="C343"/>
-<TumourLaterality code="L"/> <ClinicalDateCancerDiagnosis>1900-01-01</ClinicalDateCancerDiagnosis>
-</LungCoreLinkageDiagnosis> <LungCoreDemographics>
-<PersonFamilyName> <family>SMITH</family>
-</PersonFamilyName> <PersonGivenName>
-<given>JOHN</given> </PersonGivenName> <Address>
-<UnstructuredAddress>
-<streetAddressLine>123 Main Road</streetAddressLine>
-</UnstructuredAddress> </Address>
-<Postcode>
-<postalCode>AB1 2CD</postalCode> </Postcode>
-<Gender code="1"/>
-<GMPSpecified extension="G1234566"/> <GMPRegistration extension="F12345"/> <Ethnicity code="K"/>
-</LungCoreDemographics> <LungCoreReferralAndPatientPathway>
-<ReferralToTreatmentStartDate>1900-01-01</ReferralToTreatmentStartDate> <DateFirstSeen>1900-01-01</DateFirstSeen>
-<ConsultantCode extension="C1234567"/>
-<SourceOfReferralOutPatients code="03"/> <FirstProviderSiteCode extension="AB101"/> <CancerOrSymptomaticBreastReferralPatientStatus code="08"/>
-</LungCoreReferralAndPatientPathway> <LungCoreDiagnosis>
-<BasisOfCancerDiagnosis code="2"/>
-<CancerRecurrenceCarePlanInd code="NN"/> </LungCoreDiagnosis> <LungCoreCancerCarePlan>
-<MultiDiscTeamDiscussionInd code="A"/> <CancerMultiTeamDiscussionDate>1900-01-01</CancerMultiTeamDiscussionDate> <LungCancerCarePlan>
-<SmokingStatus code="1"/>
-<MedistinalSamplingInd code="N"/> </LungCancerCarePlan>
-</LungCoreCancerCarePlan> <LungCoreStaging>
-<FinalPreTreatmentTCategory>2b</FinalPreTreatmentTCategory> <FinalPreTreatmentNCategory>2</FinalPreTreatmentNCategory> <FinalPreTreatmentMCategory>0</FinalPreTreatmentMCategory> <FinalPreTreatmentTNMStageGrouping>3A</FinalPreTreatmentTNMStageGrouping> <TNMEditionNumber>7</TNMEditionNumber>
-</LungCoreStaging> <LungCoreTreatment>
-<CancerTreatmentEventType code="01"/> <CancerTreatmentStartDate>1900-01-01</CancerTreatmentStartDate> <CancerTreatmentModality code="08"/> <ProviderTreatmentStartSiteCode extension="AB101"/> <ConsultantCode extension="C1234567"/> <LungCoreActiveMonitoring>
-<MonitoringIntent code="2"/> </LungCoreActiveMonitoring>
-</LungCoreTreatment> </LungCore>
-</Lung> </COSDRecord>
-
-<COSDRecord>
-<Id root="0C0219F4-B3A5-420F-9C85-AC01910191B7"/> <Lung>
-<LungCore> <LungCoreLinkagePatientId>
-<NHSNumber extension="1234567890"/> <LocalPatientId>AB123456</LocalPatientId> <NHSNumberStatusIndicator code="03"/> <Birthdate>1900-01-01</Birthdate> <OrgCodeOfProvider extension="AB1"/>
-</LungCoreLinkagePatientId> <LungCoreLinkageDiagnosis>
-<PrimaryDiagnosis code="C343"/>
-<TumourLaterality code="L"/> <ClinicalDateCancerDiagnosis>1900-01-01</ClinicalDateCancerDiagnosis>
-</LungCoreLinkageDiagnosis> <LungCoreDemographics>
-<PersonFamilyName> <family>SMITH</family>
-</PersonFamilyName> <PersonGivenName>
-<given>JOHN</given> </PersonGivenName> <Address>
-<UnstructuredAddress>
-<streetAddressLine>123 Main Road</streetAddressLine>
-</UnstructuredAddress> </Address>
-<Postcode>
-<postalCode>AB1 2CD</postalCode> </Postcode>
-<Gender code="1"/>
-<GMPSpecified extension="G1234566"/> <GMPRegistration extension="F12345"/> <Ethnicity code="K"/>
-</LungCoreDemographics> <LungCoreReferralAndPatientPathway>
-<ReferralToTreatmentStartDate>1900-01-01</ReferralToTreatmentStartDate> <DateFirstSeen>1900-01-01</DateFirstSeen>
-<ConsultantCode extension="C1234567"/>
-<SourceOfReferralOutPatients code="03"/> <FirstProviderSiteCode extension="AB101"/> <CancerOrSymptomaticBreastReferralPatientStatus code="08"/>
-</LungCoreReferralAndPatientPathway> <LungCoreDiagnosis>
-<BasisOfCancerDiagnosis code="2"/>
-<CancerRecurrenceCarePlanInd code="NN"/> </LungCoreDiagnosis> <LungCoreCancerCarePlan>
-<MultiDiscTeamDiscussionInd code="A"/> <CancerMultiTeamDiscussionDate>1900-01-01</CancerMultiTeamDiscussionDate> <LungCancerCarePlan>
-<SmokingStatus code="1"/>
-<MedistinalSamplingInd code="N"/> </LungCancerCarePlan>
-</LungCoreCancerCarePlan> <LungCoreStaging>
-<FinalPreTreatmentTCategory>2b</FinalPreTreatmentTCategory> <FinalPreTreatmentNCategory>2</FinalPreTreatmentNCategory> <FinalPreTreatmentMCategory>0</FinalPreTreatmentMCategory> <FinalPreTreatmentTNMStageGrouping>3A</FinalPreTreatmentTNMStageGrouping> <TNMEditionNumber>7</TNMEditionNumber>
-</LungCoreStaging> <LungCoreTreatment>
-<CancerTreatmentEventType code="01"/> <CancerTreatmentStartDate>1900-01-01</CancerTreatmentStartDate> <CancerTreatmentModality code="08"/> <ProviderTreatmentStartSiteCode extension="AB101"/> <ConsultantCode extension="C1234567"/> <LungCoreActiveMonitoring>
-<MonitoringIntent code="2"/> </LungCoreActiveMonitoring>
-</LungCoreTreatment> </LungCore>
-</Lung> </COSDRecord>
- </COSD:COSD>
+  <Id root="60E8A409-24B6-4ADC-9C96-0273F668BDC8"/>
+  <OrgCodeSubmitter extension="AB1"/>
+  <RecordCount value="1"/>
+  <ReportingPeriodStartDate>1900-01-01</ReportingPeriodStartDate>
+  <ReportingPeriodEndDate>1900-01-01</ReportingPeriodEndDate>
+  <FileCreationDateTime>1900-02-01T10:11:12</FileCreationDateTime>
+  <COSDRecord>
+    <Id root="0C0219F4-B3A5-420F-9C85-AC01910191B7"/>
+    <Lung>
+      <LungCore>
+        <LungCoreLinkagePatientId>
+          <NHSNumber extension="1234567890"/>
+          <LocalPatientId>AB123456</LocalPatientId>
+          <NHSNumberStatusIndicator code="03"/>
+          <Birthdate>1900-01-01</Birthdate>
+          <OrgCodeOfProvider extension="AB1"/>
+        </LungCoreLinkagePatientId>
+        <LungCoreLinkageDiagnosis>
+          <PrimaryDiagnosis code="C343"/>
+          <TumourLaterality code="L"/>
+          <ClinicalDateCancerDiagnosis>1900-01-01</ClinicalDateCancerDiagnosis>
+        </LungCoreLinkageDiagnosis>
+        <LungCoreDemographics>
+          <PersonFamilyName>
+            <family>SMITH</family>
+          </PersonFamilyName>
+          <PersonGivenName>
+            <given>JOHN</given>
+          </PersonGivenName>
+          <Address>
+            <UnstructuredAddress>
+              <streetAddressLine>123 Main Road</streetAddressLine>
+            </UnstructuredAddress>
+          </Address>
+          <Postcode>
+            <postalCode>AB1 2CD</postalCode>
+          </Postcode>
+          <Gender code="1"/>
+          <GMPSpecified extension="G1234566"/>
+          <GMPRegistration extension="F12345"/>
+          <Ethnicity code="K"/>
+        </LungCoreDemographics>
+        <LungCoreReferralAndPatientPathway>
+          <ReferralToTreatmentStartDate>1900-01-01</ReferralToTreatmentStartDate>
+          <DateFirstSeen>1900-01-01</DateFirstSeen>
+          <ConsultantCode extension="C1234567"/>
+          <SourceOfReferralOutPatients code="03"/>
+          <FirstProviderSiteCode extension="AB101"/>
+          <CancerOrSymptomaticBreastReferralPatientStatus code="08"/>
+        </LungCoreReferralAndPatientPathway>
+        <LungCoreDiagnosis>
+          <BasisOfCancerDiagnosis code="2"/>
+          <CancerRecurrenceCarePlanInd code="NN"/>
+        </LungCoreDiagnosis>
+        <LungCoreCancerCarePlan>
+          <MultiDiscTeamDiscussionInd code="A"/>
+          <CancerMultiTeamDiscussionDate>1900-01-01</CancerMultiTeamDiscussionDate>
+          <LungCancerCarePlan>
+            <SmokingStatus code="1"/>
+            <MedistinalSamplingInd code="N"/>
+          </LungCancerCarePlan>
+        </LungCoreCancerCarePlan>
+        <LungCoreStaging>
+          <FinalPreTreatmentTCategory>2b</FinalPreTreatmentTCategory>
+          <FinalPreTreatmentNCategory>2</FinalPreTreatmentNCategory>
+          <FinalPreTreatmentMCategory>0</FinalPreTreatmentMCategory>
+          <FinalPreTreatmentTNMStageGrouping>3A</FinalPreTreatmentTNMStageGrouping>
+          <TNMEditionNumber>7</TNMEditionNumber>
+        </LungCoreStaging>
+        <LungCoreTreatment>
+          <CancerTreatmentEventType code="01"/>
+          <CancerTreatmentStartDate>1900-01-01</CancerTreatmentStartDate>
+          <CancerTreatmentModality code="08"/>
+          <ProviderTreatmentStartSiteCode extension="AB101"/>
+          <ConsultantCode extension="C1234567"/>
+          <LungCoreActiveMonitoring>
+            <MonitoringIntent code="2"/>
+          </LungCoreActiveMonitoring>
+        </LungCoreTreatment>
+      </LungCore>
+    </Lung>
+  </COSDRecord>
+  <COSDRecord>
+    <Id root="0C0219F4-B3A5-420F-9C85-AC01910191B7"/>
+    <Lung>
+      <LungCore>
+        <LungCoreLinkagePatientId>
+          <NHSNumber extension="1234567890"/>
+          <LocalPatientId>AB123456</LocalPatientId>
+          <NHSNumberStatusIndicator code="03"/>
+          <Birthdate>1900-01-01</Birthdate>
+          <OrgCodeOfProvider extension="AB1"/>
+        </LungCoreLinkagePatientId>
+        <LungCoreLinkageDiagnosis>
+          <PrimaryDiagnosis code="C343"/>
+          <TumourLaterality code="L"/>
+          <ClinicalDateCancerDiagnosis>1900-01-01</ClinicalDateCancerDiagnosis>
+        </LungCoreLinkageDiagnosis>
+        <LungCoreDemographics>
+          <PersonFamilyName>
+            <family>SMITH</family>
+          </PersonFamilyName>
+          <PersonGivenName>
+            <given>JOHN</given>
+          </PersonGivenName>
+          <Address>
+            <UnstructuredAddress>
+              <streetAddressLine>123 Main Road</streetAddressLine>
+            </UnstructuredAddress>
+          </Address>
+          <Postcode>
+            <postalCode>AB1 2CD</postalCode>
+          </Postcode>
+          <Gender code="1"/>
+          <GMPSpecified extension="G1234566"/>
+          <GMPRegistration extension="F12345"/>
+          <Ethnicity code="K"/>
+        </LungCoreDemographics>
+        <LungCoreReferralAndPatientPathway>
+          <ReferralToTreatmentStartDate>1900-01-01</ReferralToTreatmentStartDate>
+          <DateFirstSeen>1900-01-01</DateFirstSeen>
+          <ConsultantCode extension="C1234567"/>
+          <SourceOfReferralOutPatients code="03"/>
+          <FirstProviderSiteCode extension="AB101"/>
+          <CancerOrSymptomaticBreastReferralPatientStatus code="08"/>
+        </LungCoreReferralAndPatientPathway>
+        <LungCoreDiagnosis>
+          <BasisOfCancerDiagnosis code="2"/>
+          <CancerRecurrenceCarePlanInd code="NN"/>
+        </LungCoreDiagnosis>
+        <LungCoreCancerCarePlan>
+          <MultiDiscTeamDiscussionInd code="A"/>
+          <CancerMultiTeamDiscussionDate>1900-01-01</CancerMultiTeamDiscussionDate>
+          <LungCancerCarePlan>
+            <SmokingStatus code="1"/>
+            <MedistinalSamplingInd code="N"/>
+          </LungCancerCarePlan>
+        </LungCoreCancerCarePlan>
+        <LungCoreStaging>
+          <FinalPreTreatmentTCategory>2b</FinalPreTreatmentTCategory>
+          <FinalPreTreatmentNCategory>2</FinalPreTreatmentNCategory>
+          <FinalPreTreatmentMCategory>0</FinalPreTreatmentMCategory>
+          <FinalPreTreatmentTNMStageGrouping>3A</FinalPreTreatmentTNMStageGrouping>
+          <TNMEditionNumber>7</TNMEditionNumber>
+        </LungCoreStaging>
+        <LungCoreTreatment>
+          <CancerTreatmentEventType code="01"/>
+          <CancerTreatmentStartDate>1900-01-01</CancerTreatmentStartDate>
+          <CancerTreatmentModality code="08"/>
+          <ProviderTreatmentStartSiteCode extension="AB101"/>
+          <ConsultantCode extension="C1234567"/>
+          <LungCoreActiveMonitoring>
+            <MonitoringIntent code="2"/>
+          </LungCoreActiveMonitoring>
+        </LungCoreTreatment>
+      </LungCore>
+    </Lung>
+  </COSDRecord>
+</COSD:COSD>
