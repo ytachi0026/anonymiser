@@ -6,10 +6,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 console.log(path.resolve(__dirname, 'dist/js'));
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/client.js',
   devtool: 'source-map',
   output: {
-    filename: 'bundle.js',
+    filename: 'client.min.js',
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'var',
     library: 'EntryPoint',
@@ -19,15 +19,46 @@ module.exports = {
     hot: true,
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /(node_modules|bower_components)/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015'],
+    rules: [{
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'react'],
+        },
       },
-    },
-  ],
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules|bower_components)/,
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      },
+      {
+        test: /\.(css|scss)$/,
+        use: [
+          {
+            loader: 'style-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   stats: {
     colors: true,

@@ -5,7 +5,7 @@
 
 .navbar-brand>img {
   height: 100%;
-  
+
   width: auto;
 }
 
@@ -95,7 +95,7 @@
 body {
 	padding-top: 50px;
 }
- 
+
 
 .nested-list-container {
 	padding-bottom: 50px;
@@ -112,7 +112,7 @@ body {
 .page-header h3{
 	font-family: Helvetica;
 	font-weight: bold;
-	
+
 }
 
 .navbar .navbar-right .active {
@@ -131,7 +131,7 @@ body {
 
 .contact .col-sm-6 {
 	margin-bottom: 50px;
-	
+
 }
 
 
@@ -150,7 +150,7 @@ body {
 
 .white-background {
 	color: #1A237E;
-	
+
 }
 
 
@@ -160,7 +160,7 @@ body {
 }
 
 .portfolio-content hr {
-	border-color: #03044B;	
+	border-color: #03044B;
 } */
 
 /*.gallery-content {
@@ -172,7 +172,7 @@ body {
 
 .about-content .page-header img {
 	width: 300px;
-	height: 300px;	
+	height: 300px;
 }
 
 .about-table {
@@ -182,7 +182,7 @@ body {
 }
 
 .about-table .col-sm-6 {
-	
+
 	padding: 5px;
 }
 .page-header {
@@ -190,7 +190,7 @@ body {
 	height: auto;
 	overflow: hidden;
 	padding-bottom: 20px;
-	
+
 
 }
 
@@ -208,7 +208,7 @@ body {
 	font-style: normal;
 	padding: 10px;
 	background-color: #a1a1a1;
-	
+
 } */
 
 
@@ -224,7 +224,6 @@ body {
 	font-weight: bold;
 	background-color: #416bf4;
 	margin-top: 50px;
-
 }
 
 
@@ -237,7 +236,7 @@ body {
 }
 
 #cafe-image {
-	background-image: url("../images/cafe.png"); 
+	background-image: url("../images/cafe.png");
 }
 
 #cost-tracker-image {
@@ -249,7 +248,7 @@ body {
 }
 
 .project-image {
-	
+
 	background-size: 100% 100%;
 	color: white;
 	line-height: 160px;
@@ -257,7 +256,7 @@ body {
 	font-size: 20px;
 	font-weight: bold;
 
-		
+
 }
 
 .project-image span {
@@ -270,10 +269,10 @@ body {
 
 
 /*#term-rewriter-image:hover {
-	
+
 	background-color: rgba(163, 11, 3, 0.9);
 	background-image: none;
-	
+
 
 }
 
@@ -332,12 +331,12 @@ body {
 	height: 60px;
 	border-radius: 100%;
 	border-style: solid;
-	
+
 	margin-top: 20px;
 	margin-right: 10px;
-	
+
 	text-decoration: none;
-	
+
 }
 
 .more-options-button-left {
@@ -438,17 +437,17 @@ body {
 input::-webkit-input-placeholder {
 color: white !important;
 }
- 
+
 input:-moz-placeholder { /* Firefox 18- */
-color: white !important;  
+color: white !important;
 }
- 
+
 input::-moz-placeholder {  /* Firefox 19+ */
-color: white !important;  
+color: white !important;
 }
- 
-input:-ms-input-placeholder {  
-color: white !important;  
+
+input:-ms-input-placeholder {
+color: white !important;
 }
 
 .borderless:focus {

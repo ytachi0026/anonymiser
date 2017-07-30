@@ -1,0 +1,51 @@
+@import './_colors.scss';
+@import './_fonts.scss';
+
+html, body {
+  box-sizing: border-box;
+  background-color: $color1;
+  font-family: $font2, serif;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+ul, nav, header, h1, h2, h3, h4, h5, h6 {
+  font-family: $font1;
+}
+
+.target-anonymity{
+  overflow-x: hidden;
+  display: block;
+  font-size: large;
+}
+
+.anonymise-btn {
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-weight: bold;
+	background-color: #416bf4;
+	margin-top: 10px
+}
+
+#app-content {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+*{
+  -webkit-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+}

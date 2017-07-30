@@ -37,6 +37,28 @@ const isValidFile = (file, contenType) => {
   return band;
 };
 
+export const anonymiseGeneralCSVfile = (file, target) => {
+  if (!isValidFile(file, 'text/csv')) {
+    alert('ERROR: CWT file cannot be processed.');
+    return;
+  }
+
+  papa.parse(file, {
+    header: true,
+    complete: (results) => {
+      results.data.forEach((item, index) => {
+        target.forEach((identifier) => {
+          if (item[identifier]) {
+            item[identifier] = hash256Information(item[identifier]);
+          }
+        });
+      });
+      let csvAnonimised = papa.unparse(results.data);
+      downloadCSVFile(anonymiseName(file.name), csvAnonimised);
+    },
+  });
+};
+
 export const anonymiseCOSDdata = (file) => {
   if (!isValidFile(file, 'application/xml')) {
     alert('ERROR: COSD file cannot be processed.');
