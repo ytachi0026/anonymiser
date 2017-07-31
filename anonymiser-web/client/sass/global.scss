@@ -21,13 +21,7 @@ ul, nav, header, h1, h2, h3, h4, h5, h6 {
   font-family: $font1;
 }
 
-.target-anonymity{
-  overflow-x: hidden;
-  display: block;
-  font-size: large;
-}
-
-.anonymise-btn {
+button {
 	color: white;
 	border-radius: 30px;
 	font-size: 15px;
@@ -36,7 +30,7 @@ ul, nav, header, h1, h2, h3, h4, h5, h6 {
 	padding-top: 15px;
 	padding-bottom: 15px;
 	font-weight: bold;
-	background-color: #416bf4;
+	background-color: $color6;
 	margin-top: 10px
 }
 

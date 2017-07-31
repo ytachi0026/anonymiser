@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import FieldToAnonymise from './FieldToAnonymise';
 import Footer from './Footer';
-import { anonymiseGeneralCSVfile } from '../anonymiser';
+import { anonymiseGeneralCSVfile } from '../api/anonymiser';
 import $ from 'jquery';
 
 export default class Layout extends React.Component {
@@ -66,7 +66,7 @@ export default class Layout extends React.Component {
         <hr></hr>
         <FieldToAnonymise headers={this.state.headers}
           updateAnonymityIn={this.addFieldToBeAnonymised.bind(this)}/>
-        <button className='anonymise-btn' onClick={this.anonymiseFile}>Anonymise</button>
+        <button onClick={this.anonymiseFile}>Anonymise</button>
         <Footer/>
       </div>
     );

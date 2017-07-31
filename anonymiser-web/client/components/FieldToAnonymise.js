@@ -1,4 +1,5 @@
 import React from 'react';
+import './FieldToAnonymise.scss';
 
 export default class FieldToAnonymise extends React.Component {
   constructor() {
@@ -25,7 +26,7 @@ export default class FieldToAnonymise extends React.Component {
       <p>{message}</p>
       {headersOption.map((listValue, index) => {
         console.log('');
-        return <label key={index}> {listValue} <input type='checkbox'
+        return <label className='label-anonymity' key={index}> {listValue} <input type='checkbox'
           key={index} onChange={this.updateAnonymityIn} value={listValue}></input> </label>;
       })}
       </div>;

@@ -4,10 +4,8 @@
   "description": "Anonymiser for PEACH oncology data: CODS, CWT and SACTs",
   "main": "index.html",
   "scripts": {
-    "dependencies": "./node_modules/.bin/gulp dependencies",
     "build-client": "./node_modules/.bin/webpack --config webpack.config.js --progress --display-error-details --bail",
     "serverdev": "./node_modules/.bin/webpack-dev-server",
-    "build": "npm run build-client",
     "dev": "npm run build && npm run serverdev"
   },
   "author": "PEACH",
@@ -21,9 +19,8 @@
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.4",
     "express": "^4.15.3",
+    "file-loader": "^0.11.2",
     "fs-loader": "0.0.1",
-    "gulp": "^3.9.1",
-    "gulp-webpack": "^1.5.0",
     "html-webpack-plugin": "^2.29.0",
     "http-server": "^0.10.0",
     "jsonfile": "^3.0.1",

@@ -3,10 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-console.log(path.resolve(__dirname, 'dist/js'));
-
 module.exports = {
-  entry: './src/client.js',
+  entry: './client/client.js',
   devtool: 'source-map',
   output: {
     filename: 'client.min.js',
@@ -58,6 +56,10 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ['file-loader'],
+      },
     ],
   },
   stats: {
@@ -65,5 +67,10 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'PEACH Anonymiser',
+      template: './client/template/index.html',
+      filename: 'index.html',
+    }),
   ],
 };

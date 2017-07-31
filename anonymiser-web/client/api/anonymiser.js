@@ -3,7 +3,7 @@ const xml2js = require('xml2js');
 
 import {
   cwtSensitive
-} from './ent/data';
+} from '../ent/data';
 import {
   hash256Information
 } from './sha256';
