@@ -9,8 +9,6 @@ module.exports = {
   output: {
     filename: 'client.min.js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'var',
-    library: 'EntryPoint',
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),

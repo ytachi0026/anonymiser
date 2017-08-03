@@ -6,7 +6,7 @@
   "scripts": {
     "build-client": "./node_modules/.bin/webpack --config webpack.config.js --progress --display-error-details --bail",
     "serverdev": "./node_modules/.bin/webpack-dev-server",
-    "dev": "npm run build && npm run serverdev"
+    "dev": "npm run build-client && npm run serverdev"
   },
   "author": "PEACH",
   "license": "MIT",
@@ -21,10 +21,10 @@
     "express": "^4.15.3",
     "file-loader": "^0.11.2",
     "fs-loader": "0.0.1",
+    "get-value": "^2.0.6",
     "html-webpack-plugin": "^2.29.0",
     "http-server": "^0.10.0",
     "jsonfile": "^3.0.1",
-    "line-by-line": "^0.1.5",
     "lodash": "^4.17.4",
     "loglevel": "^1.4.1",
     "node-sass": "^4.5.3",
@@ -34,16 +34,22 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "sass-loader": "^6.0.6",
+    "sax": "^1.2.4",
+    "saxpath": "0.5.5",
     "serve-static": "^1.12.3",
     "style-loader": "^0.18.2",
     "superagent": "^3.5.2",
+    "util": "^0.10.3",
     "webpack": "^3.4.1",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-dev-server": "^2.6.0",
-    "xml2js": "^0.4.17"
+    "xml2js": "^0.4.17",
+    "xmldom": "^0.1.27",
+    "xpath": "^0.0.24"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "react-router": "3"
   }
 }

@@ -2,19 +2,19 @@ const fs = require('fs');
 const path = require('path');
 const xml2js = require('xml2js');
 const papa = require('papaparse');
+const saxpath = require('saxpath');
+const sax = require('sax');
+const util = require('util');
 
-//const jsonfile = require('jsonfile');
-// const file = path.join(path.resolve(__dirname), 'data.json');
-// console.log(file);
-// const obj = {
-//   name: 'JP',
-// };
 const parser = new xml2js.Parser({
   explicitArray: false,
   mergeAttrs: true,
   explicitRoot: false,
 });
+
 const sampleCOSD = path.join(path.resolve(__dirname, '../sample'), 'sampleCOSD.xml');
+
+console.log('FILE to be processed');
 console.log(sampleCOSD);
 
 fs.readFile(sampleCOSD, (err, data) => {
@@ -24,24 +24,22 @@ fs.readFile(sampleCOSD, (err, data) => {
       //Processing LUNG CANCER
       if (item.hasOwnProperty('Lung')) {
         let lungCore = item.Lung.LungCore;
+        console.log(lungCore);
         let infoLung = new Object();
-        infoLung.NHSNumber = lungCore.LungCoreLinkagePatientId.NHSNumber.extension;
         infoLung.PrimaryDiagnosis = lungCore.LungCoreLinkageDiagnosis.PrimaryDiagnosis.code;
-        infoLung.TumourLaterality = lungCore.LungCoreLinkageDiagnosis.TumourLaterality.code;
         infoLung.ClinicalDateCancerDiagnosis =
           lungCore.LungCoreLinkageDiagnosis.ClinicalDateCancerDiagnosis;
+        infoLung.TumourLaterality = lungCore.LungCoreLinkageDiagnosis.TumourLaterality.code;
+        infoLung.SiteCodeOfDiagnosis = lungCore.LungCoreDiagnosis.SiteCodeOfDiagnosis.extension;
         lungCancer.push(infoLung);
+        console.log('-- END --');
       }
     });
-    console.log(lungCancer);
     let csv = papa.unparse(lungCancer);
+    console.log('Transformation into CSV');
     console.log(csv);
     console.log('Done');
   });
-
-  // jsonfile.writeFile(file, json, (err) => {
-  //   console.error(err);
-  // });
 });
 
 function listAllProperties(o) {

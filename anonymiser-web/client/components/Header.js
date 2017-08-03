@@ -15,8 +15,6 @@ export default class Header extends React.Component {
           <img src = {PeachLogo}/>
         </a>
         </div>
-        <h1>Anonymiser</h1>
-        <h4>A tool to pseudo-anonymise data.</h4>
       </div>
     );
   }
